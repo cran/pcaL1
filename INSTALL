@@ -1,0 +1,71 @@
+GNU R package pcaL1: Three L1 Norm PCA Methods
+
+Installation of the precompiled binary version of the package should
+be the same as for any other package.
+
+When installing from source,  the pcaL1 package needs to know where to
+find the COIN-OR Clp include directory and where to find the callable library.
+Most Linux distributions have Clp available as a package; for example, Ubuntu
+Linux has coinor-libclp-dev.  Otherwise, follow instructions on compiling
+the libraries from http://www.coin-or.org.
+
+
+# ---------------------------------------------------------------------------- #
+# Linux and MacOS X installation
+# ---------------------------------------------------------------------------- #
+
+If you just use
+
+   R CMD INSTALL pcaL1_X.X.X.tar.gz
+
+the configure script will check if pkg-config is installed and knows about 
+where Clp is installed.  If not, the script will then check to see if clp is
+in the PATH and use the PATH as the prefix.  If clp is not in the PATH, 
+then the script checks /usr/local/include and /usr/local/lib.
+
+Alternatively, you can specify the location of the include and library 
+directories in one of three ways:
+
+1) Use --with-clp-<ARG>
+
+   --with-clp-include=PATH      with PATH being the include directory of
+                                COIN-OR Clp
+
+   --with-clp-lib=PATH          with PATH being the directory containing the
+                                callable library.
+
+   R CMD INSTALL --configure-args=" \
+       --with-clp-include=/path/to/include/dir \
+       --with-clp-lib=/path/to/lib/dir" pcaL1_X.X.X.tar.gz
+
+   When using --with-clp-<ARG>, both arguments must be given.
+
+2) Use of environment variables
+
+   CLP_INCLUDE                 giving the PATH to the include directory of
+                               COIN-OR Clp
+   CLP_LIB                     giving the PATH to the directory containing the
+                               callable library.
+
+3) Use --prefix
+
+   --prefix=PATH               with path being the installation directory of
+                               COIN-OR Clp. The include directory is assumed to
+                               be PATH/include and the callable library should
+                               be in PATH/lib.
+
+
+# ---------------------------------------------------------------------------- #
+# Windows installation
+# ---------------------------------------------------------------------------- #
+
+For the installation on Windows systems the file Makewars.win in src/ is
+required. The file looks like this:
+
+PKG_CPPFLAGS=-g -D_R_=1 -DUSE_R=1 -I${CLP_PATH}/include/coin -I${CLP_PATH}/include
+PKG_LIBS=-L${CLP_PATH}/lib/coin -L${CLP_PATH}/lib -lClp -lCoinUtils -lstdc++ $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+
+with the environment variable CLP_PATH being the installation directory
+of COIN-OR Clp. 
+
+

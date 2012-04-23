@@ -16,7 +16,7 @@ the libraries from http://www.coin-or.org.
 
 If you just use
 
-   R CMD INSTALL pcaL1_X.X.X.tar.gz
+   R CMD INSTALL pcaL1_X.X.tar.gz
 
 the configure script will check if pkg-config is installed and knows about 
 where Clp is installed.  If not, the script will then check to see if clp is
@@ -36,7 +36,7 @@ directories in one of three ways:
 
    R CMD INSTALL --configure-args=" \
        --with-clp-include=/path/to/include/dir \
-       --with-clp-lib=/path/to/lib/dir" pcaL1_X.X.X.tar.gz
+       --with-clp-lib=/path/to/lib/dir" pcaL1_X.X.tar.gz
 
    When using --with-clp-<ARG>, both arguments must be given.
 

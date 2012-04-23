@@ -1,4 +1,4 @@
-AC_INIT([pcaL1], [1.0], [jpbrooks@vcu.edu])
+AC_INIT([pcaL1], [1.1], [jpbrooks@vcu.edu])
 
 dnl # --------------------------------------------------------------------
 dnl # R compiler and flags
@@ -138,31 +138,6 @@ fi
 
 CPPFLAGS="${CPPFLAGS} ${CLP_CPPFLAGS}"
 
-echo $LIBS
-dnl # --------------------------------------------------------------------
-dnl # CFLAGS
-dnl # --------------------------------------------------------------------
-
-OS_NAME=`uname -s`
-MACHINE_NAME=`uname -m`
-
-CLP_CFLAGS="-Wall -ansi"
-
-# compiler dependent
-if test [ "${CC:0:3}" = "icc" ] ; then
-
-dnl # for icc: disable remark #981: operands are evaluated in unspecified order
-    CLP_CFLAGS="-wd981"
-else
-    if test [ "${CC:0:3}" = "gcc" ] ; then
-        CLP_CFLAGS="${CLP_CFLAGS} -Wextra -Wunknown-pragmas"
-        CLP_CFLAGS="${CLP_CFLAGS} -Wconversion -Wwrite-strings"
-        CLP_CFLAGS="${CLP_CFLAGS} -Wcast-qual"
-        CLP_CFLAGS="${CLP_CFLAGS} -pedantic"
-    fi
-fi
-
-
 dnl # --------------------------------------------------------------------
 dnl # check header and library
 dnl # --------------------------------------------------------------------
@@ -182,7 +157,6 @@ dnl # --------------------------------------------------------------------
 dnl # substitute src/Makevars
 dnl # --------------------------------------------------------------------
 
-AC_SUBST(CLP_CFLAGS)
 AC_SUBST(CLP_CPPFLAGS)
 AC_SUBST(LIBS)
 AC_OUTPUT(src/Makevars)

@@ -1,12 +1,10 @@
 Package: pcaL1
-Version: 1.0
-Date: 2012-04-20
-Title: pcaL1: Three L1-Norm PCA Methods
+Version: 1.1
+Date: 2012-04-23
+Title: Three L1-Norm PCA Methods
 License: GPL (>= 2)
 Author: Sapan Jot <sapan.madaan@gmail.com> and Paul Brooks
-        <jpbrooks@vcu.edu>. The scripts configure and configure.ac and
-        the file INSTALL are based on those in R package clpAPI
-        <geliudie@uni-duesseldorf.de>.
+        <jpbrooks@vcu.edu>.
 Maintainer: Paul Brooks <jpbrooks@vcu.edu>
 Description: This package contains three implementations of principal
         component analysis methods using the L1 norm.  The package
@@ -16,6 +14,6 @@ Description: This package contains three implementations of principal
 URL: http://www.optimization-online.org/DB_HTML/2012/04/3436.html,
         http://www.coin-or.org
 SystemRequirements: COIN-OR Clp (>= 1.12.0)
-Packaged: 2012-04-20 15:36:35 UTC; root
+Packaged: 2012-04-23 12:14:56 UTC; root
 Repository: CRAN
-Date/Publication: 2012-04-20 16:07:45
+Date/Publication: 2012-04-23 14:26:43

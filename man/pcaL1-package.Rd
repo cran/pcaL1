@@ -11,12 +11,12 @@ This package contains three implementations of principal component analysis meth
 \details{
 \tabular{ll}{
 Package: \tab pcaL1\cr
-Version: \tab 1.0\cr
-Date: \tab 2012-04-20\cr
+Version: \tab 1.1\cr
+Date: \tab 2012-04-23\cr
 License: \tab GPL (>=2)\cr
 URL: \tab http://www.optimization-online.org/DB_HTML/2012/04/3436.html, http://www.coin-or.org\cr SystemRequirements: \tab COIN-OR Clp (>= 1.12.0)\cr
-Packaged: \tab 2012-04-20 05:20:06 UTC; root\cr
-Built: \tab R 2.12.1; x86_64-pc-linux-gnu; 2012-04-20 05:20:18 UTC; unix\cr
+Packaged: \tab 2012-04-23 05:20:06 UTC; root\cr
+Built: \tab R 2.12.1; x86_64-pc-linux-gnu; 2012-04-23 05:20:18 UTC; unix\cr
 }
 
 Index:

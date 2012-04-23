@@ -1,0 +1,2 @@
+2012-04-23  Paul Brooks  <jpbrooks@vcu.edu>
+	* configure.ac: Remove compiler-dependent flags.

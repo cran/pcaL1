@@ -19,10 +19,9 @@ void l1pcastar (double *points_XT, int *dataDim, int *q, int *getScores, int *ge
   SOLVERINFO  solverinfo;
   PROBLEMINFO  probleminfo;
 
+  probleminfo.status = 0;
   int status = probleminfo.status;
   
-  status = 0;
-
 
   solverinfo.model        = NULL;
 

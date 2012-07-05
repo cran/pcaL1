@@ -3,7 +3,6 @@
 #include <string.h>
 #include "type.h"
 
-
 int allocateMemory2 (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 
 
 int solveL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
@@ -18,9 +17,10 @@ void l1pca (double *points_XT, int *dataDim, int *q, double *tolerance, int *ite
   SOLVERINFO  solverinfo;
   PROBLEMINFO  probleminfo;
 
+  probleminfo.status = 0;
+  probleminfo.i = 0;
   int status = probleminfo.status;
   int i = probleminfo.i;
-  status = 0;
 
   entityinfo.points_XT       = points_XT;
   entityinfo.numentities_n  = dataDim[1];

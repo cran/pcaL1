@@ -1,3 +1,7 @@
+Version 1.2 - July 2012
+
+* Initialized variables in pcal1_R.c, l1pca_R.c, l1pcastar_R.c
+
 Version 1.1 - April 2012
 
 * Removed compiler-dependent flags from configure.ac

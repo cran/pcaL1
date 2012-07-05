@@ -11,12 +11,10 @@ This package contains three implementations of principal component analysis meth
 \details{
 \tabular{ll}{
 Package: \tab pcaL1\cr
-Version: \tab 1.1\cr
-Date: \tab 2012-04-23\cr
+Version: \tab 1.2\cr
+Date: \tab 2012-07-05\cr
 License: \tab GPL (>=2)\cr
 URL: \tab http://www.optimization-online.org/DB_HTML/2012/04/3436.html, http://www.coin-or.org\cr SystemRequirements: \tab COIN-OR Clp (>= 1.12.0)\cr
-Packaged: \tab 2012-04-23 05:20:06 UTC; root\cr
-Built: \tab R 2.12.1; x86_64-pc-linux-gnu; 2012-04-23 05:20:18 UTC; unix\cr
 }
 
 Index:
@@ -31,7 +29,7 @@ plot.pcal1              Plot a Pcal1 Object
 }
 }
 \author{
-Sapan Jot <sapan.madaan@gmail.com> and Paul Brooks <jpbrooks@vcu.edu>. The scripts configure and configure.ac and the file INSTALL are based on those in R package clpAPI <geliudie@uni-duesseldorf.de>.
+Sapan Jot <sapan.madaan@gmail.com> and Paul Brooks <jpbrooks@vcu.edu>.
 
 Maintainer: Paul Brooks <jpbrooks@vcu.edu>
 }

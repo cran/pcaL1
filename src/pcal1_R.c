@@ -15,6 +15,7 @@ void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMetho
 {
   ENTITYINFO entityinfo;
   PROBLEMINFO probleminfo;
+  probleminfo.status = 0;
   int status = probleminfo.status;
 
   probleminfo.polarity = NULL;

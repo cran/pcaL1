@@ -1,2 +1,9 @@
+2012-07-03  Paul Brooks  <jpbrooks@vcu.edu>
+
+	* l1pca_R.c (probleminfo.status): initialized to 0.
+	* l1pca_R.c (probleminfo.i): initialized to 0.
+	* l1pcastar_R.c (probleminfo.status): initialized to 0.
+	* pcal1_R.c (probleminfo.status): initialized to 0.
+
 2012-04-23  Paul Brooks  <jpbrooks@vcu.edu>
 	* configure.ac: Remove compiler-dependent flags.

@@ -1,2 +1,0 @@
-PKG_CPPFLAGS = -I/usr/local/coin-Clp/include/coin  
-PKG_LIBS = -L/usr/local/coin-Clp/lib -lClp -lCoinUtils -lbz2 -lz -llapack -lblas -lm  

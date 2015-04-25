@@ -1,13 +1,32 @@
 GNU R package pcaL1: Three L1 Norm PCA Methods
 
-Installation of the precompiled binary version of the package should
-be the same as for any other package.
+Installation of the precompiled binary version of the package on Windows
+should work as for any other package:
 
-When installing from source,  the pcaL1 package needs to know where to
+install.packages("pcaL1")
+ 
+For other operating systems, you need to install the COIN-OR Clp header files
+and libraries.  You may need to specify their location as well.  If the header 
+files and libraries are in default search locations, then you can install the 
+package using: 
+
+install.packages("pcaL1", type="source")
+
+If the header files and libraries are not installed in default search locations,
+you may need to specify their location, for example: 
+
+install.packages("pcaL1", configure.args="--prefix=/usr/local/coin-Clp", \
+                  type="source")
+
+Most Linux distributions have Clp header files and libraries available as a 
+package; for example, Ubuntu Linux has coinor-libclp-dev.  Otherwise, follow 
+instructions on installing/compiling the libraries from http://www.coin-or.org.
+
+When installing from source, the pcaL1 package needs to know where to
 find the COIN-OR Clp include directory and where to find the callable library.
-Most Linux distributions have Clp available as a package; for example, Ubuntu
-Linux has coinor-libclp-dev.  Otherwise, follow instructions on compiling
-the libraries from http://www.coin-or.org.
+
+If the Clp library is not installed in a standard location, you may need to 
+set LD_LIBRARY_PATH or use ldconfig to specify the path.
 
 
 # ---------------------------------------------------------------------------- #
@@ -21,7 +40,7 @@ If you just use
 the configure script will check if pkg-config is installed and knows about 
 where Clp is installed.  If not, the script will then check to see if clp is
 in the PATH and use the PATH as the prefix.  If clp is not in the PATH, 
-then the script checks /usr/local/include and /usr/local/lib.
+then the script checks /usr/local/coin-Clp/include and /usr/local/coin-Clp/lib.
 
 Alternatively, you can specify the location of the include and library 
 directories in one of three ways:
@@ -55,11 +74,12 @@ directories in one of three ways:
                                be in PATH/lib.
 
 
+
 # ---------------------------------------------------------------------------- #
 # Windows installation
 # ---------------------------------------------------------------------------- #
 
-For the installation on Windows systems the file Makewars.win in src/ is
+For the installation on Windows systems the file Makevars.win in src/ is
 required. The file looks like this:
 
 PKG_CPPFLAGS=-g -D_R_=1 -DUSE_R=1 -I${CLP_PATH}/include/coin -I${CLP_PATH}/include

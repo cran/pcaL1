@@ -12,14 +12,20 @@ l1pca <- function (X, projDim=1, center=TRUE, projPoints=FALSE, initialize="l2pc
     X <- X-myMedMat
   }
 
-  if (initialize == "l2pca") {
+  if (is.matrix(initialize)) {
+    initV <- initialize
+  }
+  else if (initialize == "l2pca") {
     mypca <- prcomp(X, center=center)
     initV <- mypca$rotation[,1:projDim]
   }
   else if (initialize == "random") {
     initV <- matrix(runif(ncol(X)*projDim), ncol=projDim)
   }
-  # else, return an error 
+  else {
+    # return an error
+  }
+ 
 
   X <- t(X)
 
@@ -45,8 +51,8 @@ l1pca <- function (X, projDim=1, center=TRUE, projPoints=FALSE, initialize="l2pc
   
   mysort            <- sort(solution$dispExp, decreasing=TRUE, index.return=TRUE)
   
-  solution$scores <- solution$scores[,mysort$ix]
-  solution$loadings <- solution$loadings[,mysort$ix]
+  solution$scores <- as.matrix(solution$scores[,mysort$ix])
+  solution$loadings <- matrix(solution$loadings[,mysort$ix], ncol=projDim, byrow=FALSE)
   solution$dispExp  <- solution$dispExp[mysort$ix]
 
   solution <- as.list(solution)

@@ -33,7 +33,6 @@ typedef struct solverinfo SOLVERINFO, *SOLVERINFOptr;
 /* problem info */
 struct probleminfo {
   /* variables shared by two or more methods */
-  int seed; /* seed for RNG */
   int rcnt;/*# of constraints in LP*/
   int nzcnt;/*number of coefficients to change*/
   int *matbeg;/*starting index of column*/

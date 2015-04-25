@@ -35,28 +35,19 @@ AC_ARG_WITH(clp-lib,
             [CLP_LIB=""])
 
 
-AC_ARG_ENABLE(lapack,
-              AC_HELP_STRING([--enable-lapack[=yes|no]],
-                             [link to liblapack and libblas [[yes]]]
-                            ),
-              [LAPACK=$enableval], [LAPACK="yes"])
-
 
 dnl # --------------------------------------------------------------------
 dnl # test arguments
 dnl # --------------------------------------------------------------------
 
 INCL="-lClp -lCoinUtils -lm -lbz2 -lz"
-if test "${LAPACK}" != "no"; then
-    INCL="$INCL -llapack -lblas"
-fi
 
 
 dnl # check environment variables for include and library directories
 if test [ -n "$CLP_INCLUDE" -a -n "$CLP_LIB" ] ; then
      AC_MSG_NOTICE([trying directories from environment variables])
     if test [ -d "$CLP_INCLUDE" ] ; then
-        CLP_CPPFLAGS="-I${CLP_INCLUDE}/coin"
+        CLP_CPPFLAGS="-I${CLP_INCLUDE} -I${CLP_INCLUDE}/coin"
     else
         AC_MSG_ERROR([directory $CLP_INCLUDE does not exist])
     fi
@@ -92,12 +83,11 @@ dnl # found, use /usr/local
 		AC_MSG_NOTICE([pkg-config did not find it, trying to find path to clp])
 		AC_PREFIX_PROGRAM(clp)
 		if test [ "$prefix" = "NONE" ] ; then
-		    AC_MSG_NOTICE([path not found, trying -I/usr/local/include and -L/usr/local/lib])
-        	    if test [ -d "/usr/local/include" -a -d "/usr/local/lib" ] ; then
-        	        LIBS="-L/usr/local/lib -L/usr/local/lib/coin $INCL"
-	     	        CLP_CPPFLAGS="-I/usr/local/include/coin"
-        	    else
-        	        AC_MSG_ERROR([directories /usr/local/include and /usr/local/lib do not exist])
+		    AC_MSG_NOTICE([path not found, trying -I/usr/local/coin-Clp/include/coin and -L/usr/local/coin-Clp/lib])
+        	    if test [ -d "/usr/local" ] ; then
+        	        LIBS="-L/usr/local/lib -L/usr/local/coin-Clp/lib $INCL"
+                        CLP_LIB="/usr/local/coin-Clp/lib"
+	     	        CLP_CPPFLAGS="-I/usr/local/coin-Clp/include/coin"
         	    fi
 		else
 		    if test [ -d "$prefix/include" -a -d "$prefix/lib" ] ; then
@@ -109,17 +99,14 @@ dnl # found, use /usr/local
 		fi
 	    fi
 	else
-	    AC_MSG_NOTICE([pkg-config not found, trying to find path to clp])
-	    AC_PREFIX_PROGRAM(clp)
-	    if test [ "$prefix" = "NONE" ] ; then
-	        AC_MSG_NOTICE([path not found, trying -I/usr/local/include and -L/usr/local/lib])
-                if test [ -d "/usr/local/include" -a -d "/usr/local/lib" ] ; then
-                    LIBS="-L/usr/local/lib -L/usr/local/lib/coin $INCL"
-	            CLP_CPPFLAGS="-I/usr/local/include -I/usr/local/include/coin"
-                else
-                    AC_MSG_ERROR([directories /usr/local/include and /usr/local/lib do not exist])
-                fi
-	    fi
+	    AC_MSG_NOTICE([pkg-config not found, trying -I/usr/local/coin-Clp/include/coin and -L/usr/local/coin-Clp/lib])
+            if test [ -d "/usr/local" ] ; then
+                LIBS="-L/usr/local/lib -L/usr/local/coin-Clp/lib $INCL"
+                CLP_LIB="/usr/local/coin-Clp/lib"
+	        CLP_CPPFLAGS="-I/usr/local/include -I/usr/local/coin-Clp/include/coin"
+            else
+                AC_MSG_ERROR([directory /usr/local does not exist])
+            fi
 	fi
     else
 	AC_MSG_NOTICE([trying prefix])
@@ -148,7 +135,7 @@ AC_CHECK_HEADER([Clp_C_Interface.h],,
       use --with-clp-include or CLP_INCLUDE to specify the include path.]))
 
 
-AC_SEARCH_LIBS([Clp], ,
+AC_SEARCH_LIBS([Clp_newModel],[Clp],,
     AC_MSG_ERROR([Could not link to clp:
       use --with-clp-lib or CLP_LIB to specify the lib path.]))
 
@@ -159,6 +146,7 @@ dnl # --------------------------------------------------------------------
 
 AC_SUBST(CLP_CPPFLAGS)
 AC_SUBST(LIBS)
-AC_OUTPUT(src/Makevars)
+AC_CONFIG_FILES([src/Makevars])
+AC_OUTPUT
 
 exit 0

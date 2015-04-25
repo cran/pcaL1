@@ -13,7 +13,6 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
  
  int numattributes_m = entityinfo->numattributes_m;
  int numentities_n   = entityinfo->numentities_n;
- double *points_XT    = entityinfo->points_XT;
 
  int status = probleminfo->status;
  int q = probleminfo->q;
@@ -22,10 +21,9 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
  int k = probleminfo->k;
  int l = probleminfo->l;
  double innerprod = probleminfo->innerprod;
+ int initMethod = probleminfo->initMethod;
 
  int position;
-
- srand((unsigned int) probleminfo->seed);
 
  for (k = 0; k < q; ++k) {
    REprintf("%d ", k+1);
@@ -33,7 +31,7 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
      for (i = 0; i < numentities_n ; ++i) {
        innerprod = 0.0;
        for (l = 0; l < numattributes_m; ++l) {
-         innerprod += probleminfo->wT[l] * points_XT[numattributes_m*i+l];
+         innerprod += probleminfo->wT[l] * entityinfo->points_XT[numattributes_m*i+l];
        }
        for (j = 0; j < numattributes_m; ++j) {
          position = numattributes_m*i + j;
@@ -41,11 +39,14 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
        }
      }
    }
-   status = initialize(entityinfo, probleminfo);
-   if(status) {
-     REprintf("Unable to initialize \n");
-     return 1;
+   if ((initMethod < 3) || (k != 0)) { /* if user-supplied vector (initMethod = 3), use that on first iteration */
+     status = initialize(entityinfo, probleminfo);
+     if (status) {
+       REprintf("Unable to initialize \n");
+       return 1;
+     }
    }
+    
    probleminfo->convergent = 0;
    while (probleminfo->convergent == 0) {
      status = polarityChk(entityinfo, probleminfo);
@@ -134,7 +135,7 @@ int initialize(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   else if (initMethod == 2) { /* random vector */
     xSum = 0.0;
     for (j = 0; j < numattributes_m; ++j) {
-      probleminfo->wT[j]= (double) rand() / (double) (RAND_MAX);
+      probleminfo->wT[j]= unif_rand();
       xSum += probleminfo->wT[j]*probleminfo->wT[j];
     }
     normalizer = sqrt(xSum);
@@ -222,7 +223,7 @@ int ChkConvergence(PROBLEMINFOptr probleminfo, ENTITYINFOptr entityinfo) {
   if (dotConv == 1) {/*if wT(Xi)=0, then add a small non-zero random vector and do Polarity Check again*/
     probleminfo->convergent = 0;
     for(j = 0; j < numattributes_m; ++j){
-      probleminfo->wT[j] = probleminfo->wT[j] + (double) rand()/(100.0 * (double) (RAND_MAX));
+      probleminfo->wT[j] = probleminfo->wT[j] + unif_rand()/100.0;
       wTSum = wTSum + probleminfo->wT[j] * probleminfo->wT[j];
     }
     Normalizer = sqrt (wTSum);

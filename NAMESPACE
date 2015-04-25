@@ -1,2 +1,5 @@
 exportPattern("^[^\\.]")
 useDynLib(pcaL1)
+S3method(plot, pcal1)
+S3method(plot, l1pca)
+S3method(plot, l1pcastar)

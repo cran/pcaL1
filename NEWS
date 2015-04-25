@@ -1,3 +1,9 @@
+Version 1.3 - April 2015
+
+* Updated installation instructions and configure.ac.
+* Added interface to R's internal random number generator in pcal1.c, pcal1_R.c 
+* Added support for user-defined starting points in function pcal1 and l1pca
+
 Version 1.2 - July 2012
 
 * Initialized variables in pcal1_R.c, l1pca_R.c, l1pcastar_R.c

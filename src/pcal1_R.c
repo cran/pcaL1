@@ -11,7 +11,7 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
 
 static void
   free_and_null (char **ptr);
-void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMethod, int *seed)
+void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMethod, double *initV)
 {
   ENTITYINFO entityinfo;
   PROBLEMINFO probleminfo;
@@ -32,9 +32,11 @@ void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMetho
 
   probleminfo.q = *q;/*desired number of PCs*/
   probleminfo.initMethod = *initMethod;
-  probleminfo.seed = *seed;
+  probleminfo.wT = initV;
   
   entityinfo.points_XT = points_XT; /* transpose of data matrix */
+
+  GetRNGstate();
 
   status = allocateMemoryPcaL1 (&entityinfo, &probleminfo);
   if (status) {
@@ -48,6 +50,8 @@ void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMetho
     REprintf("Unable to solve. Terminating...; or done\n");
     goto TERMINATE;
   }
+
+  PutRNGstate();
 
   REprintf("\n");
 TERMINATE:

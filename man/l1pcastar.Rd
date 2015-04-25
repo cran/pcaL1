@@ -1,7 +1,7 @@
 \name{l1pcastar}
 \alias{l1pcastar}
 \title{L1-PCA*}
-\description{Performs a principal component analysis using the algorithm L1-PCA* described by Brooks, Dula, and Boone (2012)}
+\description{Performs a principal component analysis using the algorithm L1-PCA* described by Brooks, Dula, and Boone (2013)}
 \usage{
    l1pcastar(X, projDim=1, center=TRUE, scores=FALSE, 
              projPoints=FALSE, dispExp=FALSE)
@@ -14,7 +14,7 @@
   \item{projPoints}{whether to calculate the projected points (reconstruction), default is FALSE}
   \item{dispExp}{whether to return L1 dispersion explained by each component, default is FALSE}
 }
-\details{The calculation is performed according to the algorithm described by Brooks, Dula, and Boone (2012).  The algorithm finds successive directions of minimum dispersion in the data by finding the L1-norm best-fit hyperplane at each iteration.  Linear programming instances are solved using Clp (http://www.coin-or.org)}
+\details{The calculation is performed according to the algorithm described by Brooks, Dula, and Boone (2013).  The algorithm finds successive directions of minimum dispersion in the data by finding the L1-norm best-fit hyperplane at each iteration.  Linear programming instances are solved using Clp (http://www.coin-or.org)}
 \value{
 'l1pcastar' returns a list with class "l1pcastar" containing the following components:
 \item{loadings}{the matrix of variable loadings.  The matrix has dimension ncol(X) x ncol(X).  The columns define the projected subspace.} 
@@ -37,6 +37,6 @@ myl1pcastar <- l1pcastar(X, projDim=2, center=FALSE, scores=TRUE)
 plot(myl1pcastar$scores)
 }
 \references{
-Brooks J.P., Dula J.H., and Boone E.L. (2012) A pure L1-norm princpal component analysis, in review, available at http://www.optimization-online.org.
+Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98.
 }
 \keyword{multivariate}

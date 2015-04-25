@@ -1,3 +1,13 @@
+2015-04-24  Paul Brooks  <jpbrooks@vdao-yoga>
+
+	* configure.ac: Updated default search locations for libraries and header files.
+	* pcal1.c: Added interface to R's intrernal random number generator.
+	* pcal1_R.c: Added interface to R's internal random number generator.
+	* pcal1_R.c (initV): Added user-defined starting point option.
+	* pcal1.R (initV): Added user-defined starting point option.
+	* l1pca_R.c (initV): Added user-defined starting point option.
+	* l1pca.R (initV): Added user-defined starting point option.
+
 2012-07-03  Paul Brooks  <jpbrooks@vcu.edu>
 
 	* l1pca_R.c (probleminfo.status): initialized to 0.

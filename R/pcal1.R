@@ -18,15 +18,18 @@ pcal1 <- function (X, projDim=1, center=TRUE, scores=FALSE, projPoints=FALSE, di
   X <- t(X)
   pcLength <- projDim * (nrow(X))
 
-  seed <- sample(1:10000,1)
-
+  initV <- numeric(ncol(X))
   initMethod <- 0
-  if (initialize == "maxx") {
+  if (is.numeric(initialize)) {
+    initV <- initialize
+  }
+  else if (initialize == "maxx") {
     initMethod <- 1
-  } else if (initialize == "random") {
+  } 
+  else if (initialize == "random") {
     initMethod <- 2
   }
-  sol <- .C("pcal1", as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), as.integer(initMethod), as.integer(seed), PACKAGE="pcaL1")
+  sol <- .C("pcal1", as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), as.integer(initMethod), initV, PACKAGE="pcaL1")
   
   solution <- new.env()
   solution$loadings <- matrix(sol[["loadings"]], ncol=projDim, byrow=FALSE) 

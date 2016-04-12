@@ -1,7 +1,7 @@
 08638f1b16cfc1567eedbefc8f80cf4b *ChangeLog
-bd450c298f98a8351f156579fda44d4e *DESCRIPTION
+9e790961849dd564c36e0c48a2bcab0a *DESCRIPTION
 e5393ccc21ffae954b06eedc73bd910d *INSTALL
-b5732280f04aff5b5e984b97df5f5e52 *NAMESPACE
+cf3c3dd022dc3cf3a077c1c30f0f7ece *NAMESPACE
 289a9c370b00a571ac9167d9fc33fa0a *NEWS
 9155bd6f0296b2594b84bee17f27c3b2 *R/l1pca.R
 7046e0afef3eceaa12908ffaa60cbaab *R/l1pcastar.R
@@ -21,7 +21,7 @@ f79dd553a06b1128ba493e88e8ad1ae9 *man/plot.l1pca.Rd
 c2143a6748ead3c38e8599586f95c25c *man/plot.l1pcastar.Rd
 0fdfbd5874993dc0ecce7c715e7ed9c1 *man/plot.pcal1.Rd
 9803af906301e4b4d84fc7f2439ad617 *src/Makevars.in
-db116db79c3976ebf7534bcc0a907e7e *src/Makevars.win
+849f6fe890d13230ffc5829ba2cb2b22 *src/Makevars.win
 4832a842a498a926077dca822bdeab3a *src/l1pca.c
 8c47f629d053a0d8745b3b66cf0f6c76 *src/l1pca_R.c
 7253a9ae1e77c00be0278ecec14658ff *src/l1pcastar.c

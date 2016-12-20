@@ -10,12 +10,12 @@ pcal1(X, projDim=1, center=TRUE, scores=FALSE, projPoints=FALSE,
 }
 \arguments{
   \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
   \item{center}{whether to center the data using the median, default is FALSE}
   \item{scores}{whether to return the matrix of scores, default is FALSE}
   \item{projPoints}{whether to calculate the projected points (reconstruction), default is FALSE}
   \item{dispExp}{whether to return L1 dispersion explained by each component, default is FALSE}
-  \item{initialize}{method for initial guess for component.  Options are: "l2pca" - use traditional PCA/SVD, "maxx" - use the point with the largest norm, "random" - use a random vector.}
+  \item{initialize}{initial guess for first component.  Options are: "l2pca" - use traditional PCA/SVD, "maxx" - use the point with the largest norm, "random" - use a random vector.  The user can also provide a vector as the initial guess.}
 }
 \details{The calculation is performed according to the algorithm described by Kwak (2008).  The method is a locally-convergent algorithm for finding successive directions of maximum L1 dispersion.}
 \value{
@@ -41,5 +41,5 @@ mypcal1 <- pcal1(X, projDim=2, center=FALSE, scores=TRUE)
 plot(mypcal1$scores)
 }
 \references{
-Kwak N. (2008) Principal component analysis based on L1-norm maximization, \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 30: 1672-1680.
+Kwak N. (2008) Principal component analysis based on L1-norm maximization, \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 30: 1672-1680. DOI:10.1109/TPAMI.2008.114
 }

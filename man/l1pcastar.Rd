@@ -8,7 +8,7 @@
 }
 \arguments{
   \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
   \item{center}{whether to center the data using the median, default is FALSE}
   \item{scores}{whether to return the matrix of scores, default is FALSE}
   \item{projPoints}{whether to calculate the projected points (reconstruction), default is FALSE}
@@ -37,6 +37,6 @@ myl1pcastar <- l1pcastar(X, projDim=2, center=FALSE, scores=TRUE)
 plot(myl1pcastar$scores)
 }
 \references{
-Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98.
+Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007
 }
 \keyword{multivariate}

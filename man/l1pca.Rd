@@ -8,10 +8,10 @@
 }
 \arguments{
   \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
   \item{center}{whether to center the data using the median, default is TRUE}
   \item{projPoints}{whether to calculate the projected points in terms of original coordinates (reconstruction), default is FALSE}
-  \item{initialize}{method for initial guess for loadings matrix.  Options are: "l2pca" - use traditional PCA/SVD, "random" - use a randomly-generated matrix.}
+  \item{initialize}{initial guess for loadings matrix.  Options are: "l2pca" - use traditional PCA/SVD, "random" - use a randomly-generated matrix.  The user can also provide a matrix as an initial guess.}
   \item{tolerance}{sets the convergence tolerance for the algorithm, default is 0.0001}
   \item{iterations}{sets the number of iterations to run before returning the result, default is 10}
 
@@ -43,6 +43,6 @@ plot(myl1pca$scores)
 }
 
 \references{
-Ke Q. and Kanade T. (2005) Robust L1 norm factorization in the presence of outliers and missing data by alternative convex programming, \emph{IEEE Conference on Computer Vision and Pattern Recognition}.
+Ke Q. and Kanade T. (2005) Robust L1 norm factorization in the presence of outliers and missing data by alternative convex programming, \emph{IEEE Conference on Computer Vision and Pattern Recognition}. DOI:10.1109/CVPR.2005.309
 }
 \keyword{multivariate}

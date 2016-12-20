@@ -6,10 +6,8 @@ l1pca <- function (X, projDim=1, center=TRUE, projPoints=FALSE, initialize="l2pc
     else
       X <- matrix(X, ncol = 1)
   }
-  if (center) {
-    myMedian <- apply(X, 2, median)
-    myMedMat <- matrix(rep(myMedian, nrow(X)), ncol = ncol(X), byrow=TRUE)
-    X <- X-myMedMat
+  if(center){
+    X <- apply(X,2,function(y) y - median(y));
   }
 
   if (is.matrix(initialize)) {

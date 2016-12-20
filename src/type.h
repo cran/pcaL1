@@ -130,6 +130,15 @@ struct probleminfo {
   const double *Vsol; /* solution to problem when solving for V, including lambda's */
   double udiff; /* checking for convergence of U */
   double vdiff; /* checking for convergence of V */
-  
+
+  /*for L1-PCAHp  */
+  double threshold; /*user define threshold*/
+  double currObj; /*current objective function*/
+  double xx_obj; /*previous objective function*/
+  double x_obj; /*previous objective function*/
+  double *point; /*most recent projection we ar trying to improve*/
+  const double *alpha; /*most recent projection we ar trying to improve*/
+  int numrows;
+
 };
 typedef struct probleminfo PROBLEMINFO, *PROBLEMINFOptr;

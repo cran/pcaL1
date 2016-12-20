@@ -6,10 +6,9 @@ l1pcastar <- function (X, projDim=1, center=TRUE, scores=FALSE, projPoints=FALSE
     else
       X <- matrix(X, ncol = 1)
   }
-  if (center) {
-    myMedian <- apply(X, 2, median)
-    myMedMat <- matrix(rep(myMedian, nrow(X)), ncol = ncol(X), byrow=TRUE)
-    X <- X-myMedMat
+
+  if(center){
+    X <- apply(X,2,function(y) y - median(y));
   }
 
   X <- t(X)

@@ -1,3 +1,13 @@
+Version 1.4.1 - December 2016
+
+* Added DOI numbers for references
+* Updated implementation of wPCA method (Park and Klabjan, 2016)
+
+Version 1.4 - December 2016
+
+* Added implementation of method L1-PCAhp (Visentin, Prestwich, and Armagan, 2016)
+* Added implementation of wPCA method (Park and Klabjan, 2016)
+
 Version 1.3 - April 2015
 
 * Updated installation instructions and configure.ac.

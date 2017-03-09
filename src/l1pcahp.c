@@ -3,7 +3,7 @@
 #include <math.h>
 #include "type.h"
 
-int setupCLPforL1PCAHp (SOLVERINFOptr solverinfo); 
+static int setupCLPforL1PCAHp (SOLVERINFOptr solverinfo); 
 
 int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
@@ -53,7 +53,7 @@ int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINF
   for (i = 0; i < numentities_n; ++i) {
     obj[i] = 1.0;
   }
-  for (; i < numattributes_m + numentities_n	; ++i) {
+  for (; i < numattributes_m + numentities_n; ++i) {
     obj[i] = 0.0;
   }
 
@@ -140,7 +140,7 @@ int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINF
     {
       point[i] = initV[i+ numattributes_m * (k-1)];
     }
-    while (xx_obj - x_obj > probleminfo->threshold)
+    while ((xx_obj - x_obj > probleminfo->threshold) && (x_obj > probleminfo->threshold))
     {
       matbeg[0] = 0;
       matbeg[1] = numattributes_m;
@@ -212,7 +212,7 @@ int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINF
   return 0;
 } /*end solveL1PCAHp */
 
-int setupCLPforL1PCAHp (SOLVERINFOptr solverinfo) {
+static int setupCLPforL1PCAHp (SOLVERINFOptr solverinfo) {
 
   solverinfo->model=Clp_newModel();
 

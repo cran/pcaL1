@@ -4,13 +4,15 @@
  vers <- paste("R package version", meta$Version)
  
  citEntry(entry="Manual",
-          title = "pcaL1: Three L1-Norm PCA Methods",
+          title = "pcaL1: L1-Norm PCA Methods",
           author = personList(as.person("Sapan Jot"),
-                              as.person("J. Paul Brooks")),
+                              as.person("J. Paul Brooks"),
+                              as.person("Andrea Visentin"),
+                              as.person("Young Woong Park")),
           year = year,
           note = vers,
  
           textVersion =
-          paste("Sapan Jot, J. Paul Brooks, (", year,
-                "). pcaL1: Three L1-Norm PCA Methods. ",
+          paste("Sapan Jot, J. Paul Brooks, Andrea Visentin, Young Woong Park (", year,
+                "). pcaL1: L1-Norm PCA Methods. ",
                 vers, ".", sep=""))

@@ -1,3 +1,8 @@
+Version 1.5 - February 2017
+* Added implementation of method SharpEL1-PCA (Brooks and Dula, 2017)
+* Added implementation of method PCA-Lp (Kwak, 2014)
+* Updated options for calculating scores and reconstructions (Zhou and Marron, 2016)
+
 Version 1.4.1 - December 2016
 
 * Added DOI numbers for references

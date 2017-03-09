@@ -27,7 +27,7 @@ X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100)
 myl1pcahp <- l1pcahp(X)
 
 ##projects data into 2 dimensions.
-myl1pcahp <- l1pcahp(X, projDim=2, center=FALSE, scores=TRUE)
+myl1pcahp <- l1pcahp(X, projDim=2, center=FALSE, projections="l1")
 
 ## plot first two scores
 plot(myl1pcahp$scores)

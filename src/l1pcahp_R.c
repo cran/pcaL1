@@ -3,7 +3,7 @@
 #include <string.h>
 #include "type.h"
 
-int allocateMemoryHp (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
+static int allocateMemoryHp (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
 
 int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
@@ -96,7 +96,7 @@ free_and_null (char **ptr)
    }
 } /* END free_and_null */  
 
-int allocateMemoryHp (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
+static int allocateMemoryHp (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   int numentities_n   = entityinfo->numentities_n;
   int numattributes_m = entityinfo->numattributes_m;
   

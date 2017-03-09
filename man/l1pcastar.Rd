@@ -3,16 +3,13 @@
 \title{L1-PCA*}
 \description{Performs a principal component analysis using the algorithm L1-PCA* described by Brooks, Dula, and Boone (2013)}
 \usage{
-   l1pcastar(X, projDim=1, center=TRUE, scores=FALSE, 
-             projPoints=FALSE, dispExp=FALSE)
+   l1pcastar(X, projDim=1, center=TRUE, projections="none")
 }
 \arguments{
   \item{X}{data, must be in \code{matrix} or table form}
   \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
   \item{center}{whether to center the data using the median, default is FALSE}
-  \item{scores}{whether to return the matrix of scores, default is FALSE}
-  \item{projPoints}{whether to calculate the projected points (reconstruction), default is FALSE}
-  \item{dispExp}{whether to return L1 dispersion explained by each component, default is FALSE}
+  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default)}
 }
 \details{The calculation is performed according to the algorithm described by Brooks, Dula, and Boone (2013).  The algorithm finds successive directions of minimum dispersion in the data by finding the L1-norm best-fit hyperplane at each iteration.  Linear programming instances are solved using Clp (http://www.coin-or.org)}
 \value{
@@ -31,12 +28,15 @@ X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100)
 myl1pcastar <- l1pcastar(X)
 
 ##projects data into 2 dimensions.
-myl1pcastar <- l1pcastar(X, projDim=2, center=FALSE, scores=TRUE)
+myl1pcastar <- l1pcastar(X, projDim=2, center=FALSE, projections="l1")
 
 ## plot first two scores
 plot(myl1pcastar$scores)
 }
 \references{
-Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007
+  \enumerate{
+  \item{Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007}
+  \item{Zhou, Y.-H. and Marron, J.S. (2016) Visualization of Robust L1PCA, \emph{Stat}, 5:173-184.  DOI:10.1002/sta4.113}
+  }
 }
 \keyword{multivariate}

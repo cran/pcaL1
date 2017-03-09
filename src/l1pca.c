@@ -3,11 +3,10 @@
 #include <math.h>
 #include "type.h"
 
-int setupCLPforL1PCA (SOLVERINFOptr solverinfo); 
-int solveforU (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
-int solveforV (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
-int normalize(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
-int dgesvd1 (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *U, int ldu, double *VT, int ldvt, double *work, int lwork); /* SVD */
+static int setupCLPforL1PCA (SOLVERINFOptr solverinfo); 
+static int solveforU (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
+static int solveforV (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
+static int normalize(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
 
 int solveL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
@@ -324,14 +323,6 @@ int normalize(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo){
   return 0;
 }
       
-int dgesvd1 (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *U, int ldu, double *VT, int ldvt, double *work, int lwork) { /* SVD */
-  extern void dgesvd_(const char *jobup, const char *jobvtp, const int *mp, const int *np, double *A, int *ldap, double *S, double *U, const int *ldup, double *VT, int *ldvtp, double *work, int *lworkp, int *infop);
- 
-  int info;
-  dgesvd_ (&jobu, &jobvt, &m, &n, A, &lda, S, U, &ldu, VT, &ldvt, work, &lwork, &info);
-  return info;
-} /* end dgesvd, SVD */
-
 
 
 

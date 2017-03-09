@@ -6,13 +6,14 @@
 #include "type.h"
 
 
-int allocateMemory (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 
+static int allocateMemory (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 
 int solveL1PCAStar (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
 static void
    free_and_null (char **ptr);
 
-void l1pcastar (double *points_XT, int *dataDim, int *q, int *getScores, int *getProjPoints, double *PCs, double *scores, double *projPoints) 
+/*void l1pcastar (double *points_XT, int *dataDim, int *q, double *PCs, double *scores, double *projPoints) */
+void l1pcastar (double *points_XT, int *dataDim, int *q, double *PCs) 
 {
 
   ENTITYINFO entityinfo;
@@ -51,11 +52,11 @@ void l1pcastar (double *points_XT, int *dataDim, int *q, int *getScores, int *ge
   probleminfo.colname     = NULL;
   probleminfo.a           = NULL;
   probleminfo.b           = PCs;
-  probleminfo.projPoints  = projPoints;
-  probleminfo.scores      = scores;
+/*  probleminfo.projPoints  = projPoints;
+  probleminfo.scores      = scores;*/
   probleminfo.work        = NULL;
-  probleminfo.getScores     = *getScores;
-  probleminfo.getProjPoints = *getProjPoints;
+  /*probleminfo.getScores     = *getScores;
+  probleminfo.getProjPoints = *getProjPoints;*/
  
   entityinfo.numentities_n   = dataDim[1];
   entityinfo.numattributes_m = dataDim[0];
@@ -73,8 +74,8 @@ void l1pcastar (double *points_XT, int *dataDim, int *q, int *getScores, int *ge
 
   if ((VERBOSITY) >= 2) {
     REprintf("n %d m %d\n", dataDim[1], dataDim[0]);
-    REprintf("getScores %d getProjPoints %d\n", *getScores, *getProjPoints);
-    REprintf("getScores %d getProjPoints %d\n", probleminfo.getScores, probleminfo.getProjPoints);
+    /*REprintf("getScores %d getProjPoints %d\n", *getScores, *getProjPoints);
+    REprintf("getScores %d getProjPoints %d\n", probleminfo.getScores, probleminfo.getProjPoints);*/
     REprintf("numfactors %d q %d\n", probleminfo.numfactors, probleminfo.q);
   }
  
@@ -142,7 +143,7 @@ free_and_null (char **ptr) {
   }
 } /* END free_and_null */  
 
-int allocateMemory (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
+static int allocateMemory (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   int numentities_n   = entityinfo->numentities_n;
   int numattributes_m = entityinfo->numattributes_m;
   

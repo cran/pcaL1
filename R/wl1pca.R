@@ -31,80 +31,92 @@
 #    tolerance: sets the convergence tolerance (of weights) for the algorithm, default is 0.001
 #    iterations: sets the number of iterations to run before returning the result, default is 200
 #    beta: algorithm parameter to set up bound for weights
-wl1pca <- function(X, projDim = 1, center = TRUE, tolerance = 0.001, iterations = 200, beta = 0.99){
-    if(center){
-      X <- apply(X,2,function(y) y - mean(y))
+wl1pca <- function(X, projDim = 1, center = TRUE, projections="l2", tolerance = 0.001, iterations = 200, beta = 0.99){
+  if (class(X) == "data.frame") {
+    X <- as.matrix(X)
+  }
+
+  if(center){
+    X <- apply(X,2,function(y) y - mean(y))
+  }
+  time.begin <- proc.time()
+  n <- dim(X)[1]
+  m <- dim(X)[2]
+  weights.prev <- matrix(2,n,1)
+  weights <- matrix(1,n,1)
+  obj.best <- .Machine$double.xmax
+  my.epsilon <- tolerance
+  my.epsilon.b <- 0.1
+  U.weights <- matrix(1,n,1)
+  num.iteration <- 1
+  continue.algorithm <- 1
+  my.beta <- beta^num.iteration
+  
+  while(continue.algorithm){
+
+    if(num.iteration > 1){
+      my.PC.prev <- my.PC
     }
-    time.begin <- proc.time()
-    n <- dim(X)[1]
-    m <- dim(X)[2]
-    weights.prev <- matrix(2,n,1)
-    weights <- matrix(1,n,1)
-    obj.best <- .Machine$double.xmax
-    my.epsilon <- tolerance
-    my.epsilon.b <- 0.1
-    U.weights <- matrix(1,n,1)
-    num.iteration <- 1
-    continue.algorithm <- 1
+
+    weights.prev <- weights
+    X.weighted <- diag(as.vector(weights)) %*% X
+    my.PC <- as.matrix(prcomp(X.weighted)$rotation[,1:projDim])
+    Reconstuction.Errors <- X - X %*% my.PC %*% t(my.PC)
+    Reconstructions <- X %*% my.PC %*% t(my.PC)
+    obj.current <- sum(abs(Reconstuction.Errors))
+    if(obj.current < obj.best){
+      obj.best <- obj.current
+      PC.best <- my.PC
+    }
+
+    max.U <- 0
+    for(i in 1:n){
+      L2.norm.obs.i <- sum(Reconstuction.Errors[i,]^2)
+      L1.norm.obs.i <- sum(abs(Reconstuction.Errors[i,]))
+      if(L2.norm.obs.i > my.epsilon.b){
+        U.weights[i,1] <- L1.norm.obs.i/L2.norm.obs.i
+        max.U <- max(max.U,U.weights[i,1])
+      }else{
+        U.weights[i,1] <- -1
+      }
+    }
+    U.weights[U.weights[,1]==(-1),1]<-max.U
+    weights[U.weights[,1]<weights[,1]*(1-my.beta),1] <- weights[U.weights[,1]<weights[,1]*(1-my.beta),1]*(1-my.beta)
+    weights[U.weights[,1]>weights[,1]*(1+my.beta),1] <- weights[U.weights[,1]>weights[,1]*(1+my.beta),1]*(1+my.beta)
+    weights[(weights[,1]*(1-my.beta)<=U.weights[,1]) & (U.weights[,1]<=weights[,1]*(1+my.beta)),1] <- U.weights[(weights[,1]*(1-my.beta)<=U.weights[,1]) & (U.weights[,1]<=weights[,1]*(1+my.beta)),1]
+    
     my.beta <- beta^num.iteration
-    
-    while(continue.algorithm){
-
-      if(num.iteration > 1){
-        my.PC.prev <- my.PC
-      }
-
-      weights.prev <- weights
-      X.weighted <- diag(as.vector(weights)) %*% X
-      my.PC <- prcomp(X.weighted)$rotation[,1:projDim]
-      Reconstuction.Errors <- X - X %*% my.PC %*% t(my.PC)
-      obj.current <- sum(abs(Reconstuction.Errors))
-      if(obj.current < obj.best){
-        obj.best <- obj.current
-        PC.best <- my.PC
-      }
-
-      max.U <- 0
-      for(i in 1:n){
-        L2.norm.obs.i <- sum(Reconstuction.Errors[i,]^2)
-        L1.norm.obs.i <- sum(abs(Reconstuction.Errors[i,]))
-        if(L2.norm.obs.i > my.epsilon.b){
-          U.weights[i,1] <- L1.norm.obs.i/L2.norm.obs.i
-          max.U <- max(max.U,U.weights[i,1])
-        }else{
-          U.weights[i,1] <- -1
-        }
-      }
-      U.weights[U.weights[,1]==(-1),1]<-max.U
-      weights[U.weights[,1]<weights[,1]*(1-my.beta),1] <- weights[U.weights[,1]<weights[,1]*(1-my.beta),1]*(1-my.beta)
-      weights[U.weights[,1]>weights[,1]*(1+my.beta),1] <- weights[U.weights[,1]>weights[,1]*(1+my.beta),1]*(1+my.beta)
-      weights[(weights[,1]*(1-my.beta)<=U.weights[,1]) & (U.weights[,1]<=weights[,1]*(1+my.beta)),1] <- U.weights[(weights[,1]*(1-my.beta)<=U.weights[,1]) & (U.weights[,1]<=weights[,1]*(1+my.beta)),1]
-      
-      my.beta <- beta^num.iteration
-      weight.diff <- weights.prev - weights
-      if((num.iteration >= iterations)||(sum(abs(weight.diff))<my.epsilon)){
-        continue.algorithm <- 0
-      }
-      num.iteration <- num.iteration + 1
-      if(num.iteration > 2){
-        if(norm(as.matrix(my.PC) - as.matrix(my.PC.prev),"F") < my.epsilon){
-          continue.algorithm = 0
-        }
-      }
-      cat(".")
+    weight.diff <- weights.prev - weights
+    if((num.iteration >= iterations)||(sum(abs(weight.diff))<my.epsilon)){
+      continue.algorithm <- 0
     }
-    cat("\n")
-    time.exe <- as.numeric((proc.time() - time.begin)[3])
-    
-    Reconstuction.Errors <- X - X %*% PC.best %*% t(PC.best)
-    Projected.Points <- X %*% PC.best
-    solution <- list(loadings = PC.best, scores = Projected.Points, projPoints = Reconstuction.Errors, L1error = obj.best, nIter = num.iteration, ElapsedTime = time.exe)
-    class(solution) <- "wl1pca"
-        
-    cat("# Result summary \n")
-    cat("L1 error = ", obj.best, "\n")
-    cat("Num iterations = ", num.iteration, "\n")
-    cat("Elapsed time = ", time.exe, "seconds \n\n")
-    solution
+    num.iteration <- num.iteration + 1
+    if(num.iteration > 2){
+      if(norm(as.matrix(my.PC) - as.matrix(my.PC.prev),"F") < my.epsilon){
+        continue.algorithm = 0
+      }
+    }
+    cat(".", file=stderr())
+  }
+  cat("\n", file=stderr())
+  time.exe <- as.numeric((proc.time() - time.begin)[3])
+  
+  Reconstuction.Errors <- X - X %*% PC.best %*% t(PC.best)
+  Reconstructions <- X %*% PC.best %*% t(PC.best)
+  Projected.Points <- X %*% PC.best
 
+  if (projections == "l1") {
+    myl1projection <- l1projection(X, as.matrix(PC.best))
+    Reconstructions <- myl1projection$projPoints
+    Projected.Points <- myl1projection$scores
+  }
+
+  solution <- list(loadings = PC.best, scores = Projected.Points, projPoints = Reconstructions, L1error = obj.best, nIter = num.iteration, ElapsedTime = time.exe)
+  class(solution) <- "wl1pca"
+      
+  cat("# Result summary \n", file=stderr())
+  cat("L1 error = ", obj.best, "\n", file=stderr())
+  cat("Num iterations = ", num.iteration, "\n", file=stderr())
+  cat("Elapsed time = ", time.exe, "seconds \n\n", file=stderr())
+  solution
 }

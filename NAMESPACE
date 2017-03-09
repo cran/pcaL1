@@ -1,10 +1,21 @@
-exportPattern("^[^\\.]")
-useDynLib(pcaL1)
-S3method(plot, pcal1)
+export(awl1pca,
+       l1pca,
+       l1pcahp,
+       l1pcastar,
+       l1projection,
+       l2projection,
+       pcal1,
+       pcalp,
+       sharpel1pca,
+       wl1pca)
+useDynLib(pcaL1, .registration=TRUE, .fixes="C_")
+S3method(plot, awl1pca)
 S3method(plot, l1pca)
 S3method(plot, l1pcastar)
 S3method(plot, l1pcahp)
+S3method(plot, pcal1)
+S3method(plot, pcalp)
+S3method(plot, sharpel1pca)
 S3method(plot, wl1pca)
-S3method(plot, awl1pca)
 importFrom("graphics", "plot")
-importFrom("stats", "median", "prcomp", "runif")
+importFrom("stats", "median", "prcomp", "runif", "var")

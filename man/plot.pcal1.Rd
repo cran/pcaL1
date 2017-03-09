@@ -27,7 +27,7 @@ X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100)
 mypcal1 <- pcal1(X)
 
 ##projects data into 2 dimensions.
-mypcal1 <- pcal1(X, projDim=2, center=FALSE, scores=TRUE)
+mypcal1 <- pcal1(X, projDim=2, center=FALSE, projections="l1")
 
 ## plot first two scores
 plot(mypcal1$scores)

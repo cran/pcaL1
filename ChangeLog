@@ -1,3 +1,28 @@
+2017-02-14 Paul Brooks <jpbrooks@vcu.edu>
+	* pcal1.c: Updated random sampling for convergence check.  Not
+	checking convergence for last component.
+	* sharpel1pca.c: Added SharpEL1-PCA implementation of Brooks and Dula
+	(2017).
+	* l1projection.c: Added function to find L1-norm scores and
+	reconstructions.
+	* l2projection.c: Added function to find L2-norm scores and
+	reconstructions.
+	* wl1pca.R: Loadings matrix is a matrix.  Reconstructions defined as
+	projected points.  Choice of L1 or L2 scores and reconstructions.
+	* awl1pca.R: Reconstructions defined as projected points.  Choice of
+	L1 or L2 scores and reconstructions.
+	* l1pcahp.R: Updated for case when m > n. Choice of L1 or L2 scores
+	and reconstructions.  Updated calculation of dispExp.
+	* l1pcahp.c: Updated convergence check.
+	* l1pca.R: Choice of L1 or L2 scores and reconstructions.  Updated
+	calculation of dispExp.
+	* l1pcastar.R: Choice of L1 or L2 scores and reconstructions.  Updated
+	calculation of dispExp.
+	* pcal1.R: Choice of L1 or L2 scores and reconstructions. Updated
+	calculation of dispExp.
+	* pcalp.R: Added implementation of Kwak (2014).
+	* init.c: Registering native routines and disabling symbol search.
+
 2016-12-19 Paul Brooks <jpbrooks@vcu.edu>
 	* wl1pca.R: Updated wPCA implementation of Park and Klabjan (2016).
 	* awl1pca.R: Added awPCA implementation of Park and Klabjan (2016).

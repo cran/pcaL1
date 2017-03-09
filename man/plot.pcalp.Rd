@@ -1,22 +1,22 @@
-\name{plot.l1pcastar}
-\alias{plot.l1pcastar}
-\title{Plot an L1pcastar Object}
+\name{plot.pcalp}
+\alias{plot.pcalp}
+\title{Plot a Pcalp Object}
 \description{Plots the scores on the first two principal components.}
 \usage{
-\method{plot}{l1pcastar}(x, \dots)
+\method{plot}{pcalp}(x, \dots)
 }
 \arguments{
 \item{x}{
-an object of class \code{l1pcastar} with scores for at least the first two dimensions}
+an object of class \code{pcalp} with scores for at least the first two dimensions}
 \item{\dots}{
 arguments to be passed to or from other methods.
 }
 }
 \details{
-This function is a method for the generic function \code{plot}, for objects of class \code{l1pcastar}.
+This function is a method for the generic function \code{plot}, for objects of class \code{pcalp}.
 }
 \seealso{
-\code{\link{l1pcastar}}
+\code{\link{pcalp}}
 }
 \examples{
 ##for a 100x10 data matrix X, 
@@ -24,13 +24,12 @@ This function is a method for the generic function \code{plot}, for objects of c
 ## projects data into 1 dimension.
 X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) 
                + matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
-myl1pcastar <- l1pcastar(X)
+mypcalp <- pcalp(X)
 
 ##projects data into 2 dimensions.
-myl1pcastar <- l1pcastar(X, projDim=2, center=FALSE, projections="l1")
+mypcalp <- pcalp(X, projDim=2, center=FALSE, projections="l1")
 
 ## plot first two scores
-plot(myl1pcastar$scores)
+plot(mypcalp$scores)
 }
 \keyword{multivariate}
-

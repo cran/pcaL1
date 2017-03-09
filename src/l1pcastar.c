@@ -5,16 +5,16 @@
 
 int solveL1PCAStar (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
-int initialSVD (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
-int setupCLP (SOLVERINFOptr solverinfo); 
-int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
-int changeBounds (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo, int l);
-int optimize (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
-int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
-int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
-int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *VT, int ldu, double *Umat, int ldvt, double *work, int lwork); /* SVD */
-void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc); /* multiply A *B = C */
-void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy);  /* multiply Ax = y */
+static int initialSVD (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
+static int setupCLP (SOLVERINFOptr solverinfo); 
+static int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
+static int changeBounds (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo, int l);
+static int optimize (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
+static int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
+static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
+static int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *VT, int ldu, double *Umat, int ldvt, double *work, int lwork); /* SVD */
+static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc); /* multiply A *B = C */
+static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy);  /* multiply Ax = y */
 
 int solveL1PCAStar (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   int status = probleminfo->status;
@@ -125,7 +125,7 @@ int setupCLP (SOLVERINFOptr solverinfo) {
   return 0;
 } /* end setupCLP */
 
-int initialSVD (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
+static int initialSVD (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   int    i = probleminfo->i;
   int    j = probleminfo->j;
   int    status = probleminfo->status;
@@ -166,7 +166,7 @@ int initialSVD (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
 } /* end initial SVD */
 
 
-int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
+static int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   int numcols = probleminfo->numcols;
   int i       = probleminfo->i;
   int j       = probleminfo->j;
@@ -240,7 +240,7 @@ int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMI
 } /* end loadClpProblem */
 
 
-int changeBounds (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo, int l) {
+static int changeBounds (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo, int l) {
   int j        = probleminfo->j;
   int projdim  = probleminfo->projdim;
   int *betaind = probleminfo->betaind;
@@ -260,7 +260,7 @@ int changeBounds (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo, int l) {
 } /* end changeBounds */
       
    
-int optimize (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
+static int optimize (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
 
   int status  = probleminfo->status;
   int solstat = probleminfo->solstat;
@@ -285,7 +285,7 @@ int optimize (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   return 0;
 } /* end optimize */
 
-int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
+static int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
 
   int i       = probleminfo->i;
   int numfactors = probleminfo->numfactors;
@@ -304,7 +304,7 @@ int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   return 0;
 } /* end getBeta */
 
-int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
+static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   
   int numattributes_m = entityinfo->numattributes_m;
   int numentities_n   = entityinfo->numentities_n;
@@ -326,7 +326,7 @@ int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   double *temppreVj   = probleminfo->temppreVj;
   double *temppreVBeta = probleminfo->temppreVBeta;
   double *tempPC       = probleminfo->tempPC;
-  int    q             = probleminfo->q;
+  /*int    q             = probleminfo->q;*/
 
   if ((VERBOSITY) >= 4) {
     REprintf ("projdim %d bestdir %d \n", projdim, bestdir[projdim]);
@@ -387,14 +387,14 @@ int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
       REprintf ("preVj[%d] %f\n", i, probleminfo->preVj[i]); /* product of all previous Vj */
     }
   }
-  if (probleminfo->getProjPoints == 1) {
-    if (projdim == q) { /*print projected points in original coordinates*/
-      for (i = 0; i < numattributes_m * numentities_n; ++i) {
+  /*if (probleminfo->getProjPoints == 1) {
+    if (projdim == q) {*/ /*print projected points in original coordinates*/
+      /*for (i = 0; i < numattributes_m * numentities_n; ++i) {
         probleminfo->projPoints[i] = 0.0;
       }
-      dgemm('N', 'N', numattributes_m, numentities_n, projdim + 1, 1.0, probleminfo->preVj, numattributes_m, xpluslambda_Z2, projdim + 1, 1.0, probleminfo->projPoints, numattributes_m);/*get projected points in original coordinates by multiplying preVj by xpluslambda_Z, projected points are columns */
-    }
-  }
+      dgemm('N', 'N', numattributes_m, numentities_n, projdim + 1, 1.0, probleminfo->preVj, numattributes_m, xpluslambda_Z2, projdim + 1, 1.0, probleminfo->projPoints, numattributes_m);*//*get projected points in original coordinates by multiplying preVj by xpluslambda_Z, projected points are columns */
+/*    }
+  }*/
 
   dgemv ('N', numattributes_m, projdim + 1, 1.0, probleminfo->preVj, numattributes_m, a, 1, 1.0, tempPC, 1); /*multiply old Vj's by a, to get projdim^th PC */
   for (j = 0; j <numattributes_m; ++j) {
@@ -461,17 +461,17 @@ int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
     }
   }
   /* get scores- projected points in terms of new coordinates */
-  if ((probleminfo->getScores == 1) && (projdim == q)) {
+  /*if ((probleminfo->getScores == 1) && (projdim == q)) {
     for (i = 0; i < numentities_n; ++i) {
       for (j = 0; j < projdim; ++j) {
         probleminfo->scores[i * projdim + j] = entityinfo->points_XT[i * projdim + j];
      }
     }
-  }
+  }*/
   return 0;
 } /* end getProjectedPoints */
 
-int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *VT, int ldu, double *Umat, int ldvt, double *work, int lwork) { /* SVD */
+static int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *VT, int ldu, double *Umat, int ldvt, double *work, int lwork) { /* SVD */
   extern void dgesvd_(const char *jobup, const char *jobvtp, const int *mp, const int *np, double *A, int *ldap, double *S, double *U, const int *ldup, double *Umat, int *ldvtp, double *work, int *lworkp, int *infop);
  
   int info;
@@ -480,12 +480,12 @@ int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, 
 } /* end dgesvd, SVD */
 
 
-void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc) { /* multiply A *B = C */
+static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc) { /* multiply A *B = C */
   extern void dgemm_ (const char *transap, const char *transbp, const int *mp, const int *np, const int *kp, double *alphap, double *A, const int *ldap, double *B, const int *ldbp, const double *betap, double *C, const int *ldcp); 
   dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &beta, C, &ldc);
 } /* end dgemm, multiply A*B */
 
-void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy) { /* multiply Ax = y */
+static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy) { /* multiply Ax = y */
   extern void dgemv_ (const char *transp, const int *mp, const int *np, double *alphap, double *A, const int *ldap, double *x, const int *incxp, const double *betap, double *y, const int *incyp); 
   dgemv_ (&trans, &m, &n, &alpha, A, &lda, x, &incx, &beta, y, &incy);
 } /* end dgemv, multiply Ax */

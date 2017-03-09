@@ -19,8 +19,13 @@ install.packages("pcaL1", configure.args="--prefix=/usr/local/coin-Clp", \
                   type="source")
 
 Most Linux distributions have Clp header files and libraries available as a 
-package; for example, Ubuntu Linux has coinor-libclp-dev.  Otherwise, follow 
-instructions on installing/compiling the libraries from http://www.coin-or.org.
+package; for example, Ubuntu Linux has coinor-libclp-dev.  For Mac OS X,
+the necessary files can be installed with Homebrew (https://brew.sh) using:
+
+brew install homebrew/science/coinmp
+
+Otherwise, follow instructions on installing/compiling the libraries from 
+http://www.coin-or.org.
 
 When installing from source, the pcaL1 package needs to know where to
 find the COIN-OR Clp include directory and where to find the callable library.

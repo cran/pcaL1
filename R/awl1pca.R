@@ -30,7 +30,11 @@
 #    iterations: sets the number of iterations to run before returning the result, default is 200
 #    beta: algorithm parameter to set up bound for weights
 #    gamma: algorithm parameter to determine whether to use approximation formula or prcomp function
-awl1pca <- function(X, projDim = 1, center = TRUE, tolerance = 0.001, iterations = 200, beta = 0.99, gamma = 0.1){
+awl1pca <- function(X, projDim = 1, center = TRUE, projections="l2", tolerance = 0.001, iterations = 200, beta = 0.99, gamma = 0.1){
+  if (class(X) == "data.frame") {
+    X <- as.matrix(X)
+  }
+
   if(center){
     X <- apply(X,2,function(y) y - mean(y))
   }
@@ -102,20 +106,28 @@ awl1pca <- function(X, projDim = 1, center = TRUE, tolerance = 0.001, iterations
         continue.algorithm <- 0
       }
     }
-    cat(".")
+    cat(".", file=stderr())
   }
-  cat("\n")
+  cat("\n", file=stderr())
   time.exe <- as.numeric((proc.time() - time.begin)[3])
   
   Reconstuction.Errors <- X - X %*% PC.best %*% t(PC.best)
+  Reconstructions <- X %*% PC.best %*% t(PC.best)
   Projected.Points = X %*% PC.best
-  solution <-  list(loadings = PC.best, scores = Projected.Points, projPoints = Reconstuction.Errors, L1error = obj.best, nIter = num.iteration, ElapsedTime = time.exe)
+
+  if (projections == "l1") {
+    myl1projection <- l1projection(X, as.matrix(PC.best))
+    Reconstructions <- myl1projection$projPoints
+    Projected.Points <- myl1projection$scores
+  }
+
+  solution <-  list(loadings = PC.best, scores = Projected.Points, projPoints = Reconstructions, L1error = obj.best, nIter = num.iteration, ElapsedTime = time.exe)
   class(solution) <- "awl1pca"
   
-  cat("# Result summary \n")
-  cat("L1 error = ", obj.best, "\n")
-  cat("Num iterations = ", num.iteration, "\n")
-  cat("Elapsed time = ", time.exe, "seconds \n\n")
+  cat("# Result summary \n", file=stderr())
+  cat("L1 error = ", obj.best, "\n", file=stderr())
+  cat("Num iterations = ", num.iteration, "\n", file=stderr())
+  cat("Elapsed time = ", time.exe, "seconds \n\n", file=stderr())
   solution
 }
 

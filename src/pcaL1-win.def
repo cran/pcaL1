@@ -1,0 +1,3 @@
+LIBRARY pcaL1.dll
+EXPORTS
+  R_init_pcaL1

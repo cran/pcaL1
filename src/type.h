@@ -14,6 +14,7 @@ struct entityinfo {
   int numentities_n;/*# of rows/points in your data*/
   int numattributes_m;/*# of columns*/
   double *points_XT;/*actual data points in column major format (i.e., transposed) - in a single array*/
+  double *PCs; /* loadings for solving l1projection */
 };
 typedef struct entityinfo ENTITYINFO, *ENTITYINFOptr;
 
@@ -91,7 +92,6 @@ struct probleminfo {
   int dotConv;/*stores if w.x(i)=0*/
   double *wT;/*Tth w*/
   double *wTOld;/*(T-1)th w*/
-  double *PCs;/*all the w's*/
   double *Xj; /*points for the Xj matrix -See Kwak*/
   double innerprod; /*w^Tx */
   int    convergent; /* is pcaL1 convergent */
@@ -104,6 +104,7 @@ struct probleminfo {
   double maxSum; /* for finding norm of points */
   double xSum; /* norm squared of point */
   double *points_XT_temp; /* temporary storage of points */
+  double *PCs;/*PCs for PCA-L1*/
 
   /*for L1-PCA  */
   int initialize; /*whether to use random initialization or not*/
@@ -131,6 +132,22 @@ struct probleminfo {
   double udiff; /* checking for convergence of U */
   double vdiff; /* checking for convergence of V */
 
+  /*for SharpEl  */
+  double *ratios; /* ratios x_j/x_j* */
+  double **tosort; /* pointers to the ratios to be sorted */
+  double *weights; /* weights for points */
+  double medWeight; /* weighted median */
+  double sumWeights; /* the sum of the weights */
+  double *v;  /* optimal line */
+  double normv;  /* norm of v */
+  int origIndex; /* to keep track of original index of sorted values */ 
+  int index; /* for keeping track of nonzero and defined ratios */
+  int lstar; /* direction to keep fixed for best-fit line */
+  double *objectives; /* stores objective function values for each projection dimension */
+  int normalizeV; /* Whether to normalize the components */
+  int l1;
+  int l2;
+  
   /*for L1-PCAHp  */
   double threshold; /*user define threshold*/
   double currObj; /*current objective function*/
@@ -139,6 +156,19 @@ struct probleminfo {
   double *point; /*most recent projection we ar trying to improve*/
   const double *alpha; /*most recent projection we ar trying to improve*/
   int numrows;
+
+  /* for l1projection */
+  int **aind; /* index of alpha variables */
+  const double *projSolution; /* LP solution */ 
+  double *alphas;/* scores */
+
+  /*for PCA-Lp  */
+  int solMethod; /*whether to use Gradient Ascendent or Lagrangian */
+  double lratio; /*learning ratio*/
+  double p; /*p-norm that will be applied */
+  double epsilon; /*user define tolerance for the convergence check*/
+  double *Dw; /*gradient */
+  double pNormValue; /* wT . x */
 
 };
 typedef struct probleminfo PROBLEMINFO, *PROBLEMINFOptr;

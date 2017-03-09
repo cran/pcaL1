@@ -3,16 +3,15 @@
 \title{L1-PCAhp}
 \description{Performs a principal component analysis using the algorithm L1-PCAhp described by Visentin, Prestwich and Armagan (2016)}
 \usage{
-   l1pcahp(X, projDim=1, center=TRUE, projPoints=FALSE, scores=TRUE, 
+   l1pcahp(X, projDim=1, center=TRUE, projections="none", 
            initialize="l2pca", threshold=0.0001)
 }
 \arguments{
   \item{X}{data, must be in \code{matrix} or table form}
   \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
   \item{center}{whether to center the data using the median, default is FALSE}
-  \item{scores}{whether to return the matrix of scores, default is FALSE}
-  \item{projPoints}{whether to calculate the projected points (reconstruction), default is FALSE}
-  \item{initialize}{initial guess for loadings matrix.  Options are: "l2pca" - use traditional PCA/SVD, "random" - use a randomly-generated matrix.  The user can also specify a matrix as an initial guess.}
+  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default)}
+  \item{initialize}{method for initial guess for loadings matrix.  Options are: "l2pca" - use traditional PCA/SVD, "random" - use a randomly-generated matrix.}
   \item{threshold}{sets the convergence threshold for the algorithm, default is 0.001}}
 
 
@@ -33,7 +32,7 @@ X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100)
 myl1pcahp <- l1pcahp(X)
 
 ##projects data into 2 dimensions.
-myl1pcahp <- l1pcahp(X, projDim=2, center=FALSE, scores=TRUE)
+myl1pcahp <- l1pcahp(X, projDim=2, center=FALSE, projections="l1")
 
 ## plot first two scores
 plot(myl1pcahp$scores)

@@ -11,8 +11,8 @@ This package contains implementations of six principal component analysis method
 \details{
 \tabular{ll}{
 Package: \tab pcaL1\cr
-Version: \tab 1.5\cr
-Date: \tab 2017-02-14\cr
+Version: \tab 1.5.1\cr
+Date: \tab 2017-04-10\cr
 License: \tab GPL (>=3)\cr
 URL: \tab http://www.optimization-online.org/DB_HTML/2012/04/3436.html, http://www.coin-or.org\cr SystemRequirements: \tab COIN-OR Clp (>= 1.12.0)\cr
 }

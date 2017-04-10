@@ -158,7 +158,7 @@ struct probleminfo {
   int numrows;
 
   /* for l1projection */
-  int **aind; /* index of alpha variables */
+  int *aind; /* index of alpha variables */
   const double *projSolution; /* LP solution */ 
   double *alphas;/* scores */
 

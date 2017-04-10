@@ -14,6 +14,7 @@ static void dgemmProj (char transa, char transb, int m, int n, int k, double alp
 
 int solveL1Projection (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   int status = probleminfo->status;
+  int numentities_n     = entityinfo->numentities_n;
 
   status = setupCLPProj (solverinfo);  /*initialize CLP */
   if (status) {
@@ -21,24 +22,30 @@ int solveL1Projection (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBL
     return 1;
   }
  
-  status = loadClpProblemProj(entityinfo, solverinfo, probleminfo); /*set up columns/variables */
-  if (status) {
-    REprintf ("Error with initial load of problem\n");
-    return 1;
-  }
+  for (probleminfo->i=0; probleminfo->i < numentities_n; ++probleminfo->i) {
+    if ((VERBOSITY) > 0) {
+      REprintf("%d ", probleminfo->i);
+    }
+      
+    status = loadClpProblemProj(entityinfo, solverinfo, probleminfo); /*set up columns/variables */
+    if (status) {
+      REprintf ("Error with initial load of problem\n");
+      return 1;
+    }
  
-  status = optimizeProj(solverinfo, probleminfo); /* solve with Clp, get objective value */
-  if (status) {
-    REprintf ("Error solving l1 projection problem\n");
-    return 1;
+    status = optimizeProj(solverinfo, probleminfo); /* solve with Clp, get objective value */
+    if (status) {
+      REprintf ("Error solving l1 projection problem\n");
+      return 1;
+    }
+    
+    status = getAlphas(entityinfo, solverinfo, probleminfo); /* store scores */
+    if (status) {
+      REprintf ("Error storing alphas\n");
+      return 1;
+    }
   }
-  
-  status = getAlphas(entityinfo, solverinfo, probleminfo); /* store scores */
-  if (status) {
-    REprintf ("Error storing alphas\n");
-    return 1;
-  }
-   
+
   status = getProjectedPointsProj (entityinfo, probleminfo);/* get projected points */
   if (status) {
     REprintf ("Error getting projected points\n");
@@ -74,65 +81,59 @@ static int loadClpProblemProj (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinf
   double    *ub  = probleminfo->ub;
 
   double *points_XT   = entityinfo->points_XT;
-  int numentities_n   = entityinfo->numentities_n;
   int numattributes_m = entityinfo->numattributes_m;
   double *PCs         = entityinfo->PCs;
 
   rcnt = 0;
-  for (i = 0; i < numentities_n; ++i) {
-    for (j = 0; j < numattributes_m; ++j) {
-      rhs[rcnt] = points_XT[i*numattributes_m + j];
-      ++rcnt;
-    }
+  for (j = 0; j < numattributes_m; ++j) {
+    rhs[rcnt] = points_XT[i*numattributes_m + j];
+    ++rcnt;
   }
+  
 
   nzcnt   = 0;
   numcols = 0;
  
-  for (i = 0; i < numentities_n; ++i) {
-    for (k = 0; k < projdim; ++k) {
-      matbeg[numcols] = nzcnt;
-      probleminfo->aind[i][k] = numcols;
-      obj[numcols] = 0.0;
-      lb[numcols] = -(DBL_MAX);
-      ub[numcols] = DBL_MAX;
-      /*sprintf (colname[numcols], "alpha_%d_%d",i,k);*/
-      for (j = 0; j < numattributes_m; ++j) {
-        matind[nzcnt] = i*numattributes_m + j;
-        matval[nzcnt] = PCs[k*numattributes_m + j];  
-        ++nzcnt;
-      }
-      ++numcols;
-     }
-   }
-      
-  for (i = 0; i < numentities_n; ++i) {
+  for (k = 0; k < projdim; ++k) {
+    matbeg[numcols] = nzcnt;
+    probleminfo->aind[k] = numcols;
+    obj[numcols] = 0.0;
+    lb[numcols] = -(DBL_MAX);
+    ub[numcols] = DBL_MAX;
+    /*sprintf (colname[numcols], "alpha_%d_%d",i,k);*/
     for (j = 0; j < numattributes_m; ++j) {
-      matbeg[numcols] = nzcnt;
-     /* probleminfo->lplus[i][j] = numcols;*/
-      obj[numcols] = 1.0;
-      lb[numcols] = 0.0;
-      ub[numcols] = DBL_MAX;
-      /*sprintf (colname[numcols], "lplus_%d_%d",i,j);*/
-      matind[nzcnt] = i*numattributes_m + j;
-      matval[nzcnt] = 1.0;
+      matind[nzcnt] = j;
+      matval[nzcnt] = PCs[k*numattributes_m + j];  
       ++nzcnt;
-      ++numcols;
     }
+    ++numcols;
   }
-  for (i = 0; i < numentities_n; ++i) {
-    for (j = 0; j < numattributes_m; ++j) {
-      matbeg[numcols] = nzcnt;
-      /*probleminfo->lminus[i][j] = numcols;*/
-      obj[numcols] = 1.0;
-      lb[numcols] = 0.0;
-      ub[numcols] = DBL_MAX;
-      /*sprintf (colname[numcols], "lminus_%d_%d",i,j);*/
-      matind[nzcnt] = i*numattributes_m + j;
-      matval[nzcnt] = -1.0;
-      ++nzcnt;
-      ++numcols;
-    }
+  
+      
+  for (j = 0; j < numattributes_m; ++j) {
+    matbeg[numcols] = nzcnt;
+   /* probleminfo->lplus[i][j] = numcols;*/
+    obj[numcols] = 1.0;
+    lb[numcols] = 0.0;
+    ub[numcols] = DBL_MAX;
+    /*sprintf (colname[numcols], "lplus_%d_%d",i,j);*/
+    matind[nzcnt] = j;
+    matval[nzcnt] = 1.0;
+    ++nzcnt;
+    ++numcols;
+  }
+  
+  for (j = 0; j < numattributes_m; ++j) {
+    matbeg[numcols] = nzcnt;
+    /*probleminfo->lminus[i][j] = numcols;*/
+    obj[numcols] = 1.0;
+    lb[numcols] = 0.0;
+    ub[numcols] = DBL_MAX;
+    /*sprintf (colname[numcols], "lminus_%d_%d",i,j);*/
+    matind[nzcnt] = j;
+    matval[nzcnt] = -1.0;
+    ++nzcnt;
+    ++numcols;
   }
 
   matbeg[numcols] = nzcnt;
@@ -173,26 +174,23 @@ static int getAlphas (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
   int i       = probleminfo->i;
   int k       = probleminfo->k;
   int projdim = probleminfo->projdim;
-  int **aind   = probleminfo->aind;
+  int *aind   = probleminfo->aind;
   const double *projSolution = probleminfo->projSolution;
   
   int numentities_n  = entityinfo->numentities_n;
 
   projSolution = (const double *) Clp_getColSolution (solverinfo->model);
 
-  for (i = 0; i < numentities_n; ++i) {
-    for (k = 0; k < projdim; ++k) {
-      probleminfo->alphas[numentities_n*k+i] = projSolution[aind[i][k]];
-    }
+  for (k = 0; k < projdim; ++k) {
+    probleminfo->alphas[numentities_n*k+i] = projSolution[aind[k]];
   }
+  
 
   if ((VERBOSITY) >= 4) {
-    for (i = 0; i < numentities_n; ++i) {
-      for (k = 0; k < projdim; ++k) {
-        REprintf("%f ", probleminfo->alphas[numentities_n*k+i]);
-      }
-      REprintf("\n");
+    for (k = 0; k < projdim; ++k) {
+      REprintf("%f ", probleminfo->alphas[numentities_n*k+i]);
     }
+    REprintf("\n");
   }
   return 0;
 } /* end getAlphas */

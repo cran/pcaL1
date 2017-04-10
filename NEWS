@@ -1,5 +1,9 @@
+Version 1.5.1 - April 2017
+* Updated calculation of L1-norm scores
+* Edited man pages
+
 Version 1.5 - February 2017
-* Added implementation of method SharpEL1-PCA (Brooks and Dula, 2017)
+* Added implementation of method SharpEl1-PCA (Brooks and Dula, 2017)
 * Added implementation of method PCA-Lp (Kwak, 2014)
 * Updated options for calculating scores and reconstructions (Zhou and Marron, 2016)
 

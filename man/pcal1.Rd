@@ -8,10 +8,10 @@ Performs a principal component analysis using the algorithm PCA-L1 given by Kwak
 pcal1(X, projDim=1, center=TRUE, projections="none", initialize="l2pca")
 }
 \arguments{
-  \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
-  \item{center}{whether to center the data using the median, default is FALSE}
-  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default)}
+  \item{X}{data, must be in \code{matrix} or table form.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{center}{whether to center the data using the median, default is TRUE.}
+  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default).}
   \item{initialize}{initial guess for first component.  Options are: "l2pca" - use traditional PCA/SVD, "maxx" - use the point with the largest norm, "random" - use a random vector.  The user can also provide a vector as the initial guess.}
 }
 \details{The calculation is performed according to the algorithm described by Kwak (2008).  The method is a locally-convergent algorithm for finding successive directions of maximum L1 dispersion.}
@@ -27,8 +27,8 @@ pcal1(X, projDim=1, center=TRUE, projections="none", initialize="l2pca")
 ##for 100x10 data matrix X, 
 ## lying (mostly) in the subspace defined by the first 2 unit vectors, 
 ## projects data into 1 dimension.
-X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) 
-               + matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
+X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) +
+                matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
 mypcal1 <- pcal1(X)
 
 ##projects data into 2 dimensions.

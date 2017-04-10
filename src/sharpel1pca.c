@@ -30,6 +30,7 @@ int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
   int    origIndex    = probleminfo->origIndex;
   int    lstar        = probleminfo->lstar;
   /*int    getScores    = probleminfo->getScores;*/
+  FILE *projFile; 
 
   int index = probleminfo->index;
 
@@ -141,15 +142,34 @@ int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
     }*/
 
     /* project data into orthogonal space */
-    for (i = 0; i < numentities_n ; ++i) {
-      innerprod = 0.0;
+    if (VERBOSITY > 2) {
+      projFile = fopen("projPoints.txt", "a");
       for (l = 0; l < numattributes_m; ++l) {
-        innerprod += probleminfo->PCs[numattributes_m*k+l] * entityinfo->points_XT[numattributes_m*i+l];
+        fprintf(projFile, "%f ", probleminfo->PCs[numattributes_m*k+l]);
       }
-      for (j = 0; j < numattributes_m; ++j) {
-        entityinfo->points_XT[numattributes_m*i+j] = entityinfo->points_XT[numattributes_m*i+j]-probleminfo->PCs[numattributes_m*k+j]*innerprod;
+      for (i = 0; i < numentities_n ; ++i) {
+        for (l = 0; l < numattributes_m; ++l) {
+          fprintf(projFile, "%f ", entityinfo->points_XT[numattributes_m*i+l]);
+        }
+        fprintf(projFile, "\n");
       }
-    }
+      fflush(projFile);
+      for (i = 0; i < numentities_n ; ++i) {
+        innerprod = 0.0;
+        for (l = 0; l < numattributes_m; ++l) {
+          innerprod += probleminfo->PCs[numattributes_m*k+l] * entityinfo->points_XT[numattributes_m*i+l];
+        }
+        for (j = 0; j < numattributes_m; ++j) {
+          entityinfo->points_XT[numattributes_m*i+j] = entityinfo->points_XT[numattributes_m*i+j]-probleminfo->PCs[numattributes_m*k+j]*innerprod;
+      
+          fprintf(projFile, "%f ", entityinfo->points_XT[numattributes_m*i+j]);
+        }
+        fprintf(projFile, "%f ", innerprod);
+        fprintf(projFile, "\n");
+      }
+      fflush(projFile);
+      fclose(projFile);
+    } 
   }
 
   return 0;

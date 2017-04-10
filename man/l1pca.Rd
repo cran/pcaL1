@@ -7,14 +7,13 @@
 	 initialize="l2pca", tolerance=0.0001, iterations=10)
 }
 \arguments{
-  \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
-  \item{center}{whether to center the data using the median, default is TRUE}
-  \item{projections}{Whether to calculate reconstructions and scores using the L1 ("l1", default) or L2 ("l2") norm}
+  \item{X}{data, must be in \code{matrix} or table form.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{center}{whether to center the data using the median, default is TRUE.}
+  \item{projections}{Whether to calculate reconstructions and scores using the L1 ("l1", default) or L2 ("l2") norm.}
   \item{initialize}{initial guess for loadings matrix.  Options are: "l2pca" - use traditional PCA/SVD, "random" - use a randomly-generated matrix.  The user can also provide a matrix as an initial guess.}
-  \item{tolerance}{sets the convergence tolerance for the algorithm, default is 0.0001}
-  \item{iterations}{sets the number of iterations to run before returning the result, default is 10}
-
+  \item{tolerance}{sets the convergence tolerance for the algorithm, default is 0.0001.}
+  \item{iterations}{sets the number of iterations to run before returning the result, default is 10.}
 }
 \details{The calculation is performed according to the linear programming-based algorithm described by Ke and Kanade (2005).  The method is a locally-convergent algorithm for finding the L1-norm best-fit subspace by alternatively optimizing the scores and the loadings matrix at each iteration.  Linear programming instances are solved using Clp (http://www.coin-or.org)
 }

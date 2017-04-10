@@ -13,12 +13,12 @@ pcalp(X, projDim=1, p = 1.0, center=TRUE, projections="none",
   \item{X}{data, must be in \code{matrix} or table form.}
   \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}  
   \item{p}{p-norm use to measure the distance between points.}
-  \item{center}{whether to center the data using the median, default is FALSE.}
-  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default)}
+  \item{center}{whether to center the data using the median, default is TRUE.}
+  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default).}
   \item{initialize}{method for initial guess for component.  Options are: "l2pca" - use traditional PCA/SVD, "maxx" - use the point with the largest norm, "random" - use a random vector.}  
   \item{solution}{method projection vector update.  Options are: "G" - PCA-Lp(G) implementation: Gradient search, "L" - PCA-Lp(L) implementation: Lagrangian (default).}
-  \item{epsilon}{for checking convergence}
-  \item{lratio}{learning ratio, default is 0.02. Suggested value 1/(nr. istances).}
+  \item{epsilon}{for checking convergence.}
+  \item{lratio}{learning ratio, default is 0.02. Suggested value 1/(nr. instances).}
 }
 
 \details{The calculation is performed according to the algorithm described by Kwak (2014), an extension of the original Kwak(2008).  The method is a greedy locally-convergent algorithm for finding successive directions of maximum Lp dispersion.}

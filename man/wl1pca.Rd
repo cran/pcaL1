@@ -9,13 +9,13 @@ wl1pca(X, projDim=1, center=TRUE, projections="l2",
          tolerance=0.001, iterations=200, beta=0.99)
 }
 \arguments{
-  \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
-  \item{center}{whether to center the data using the mean, default is FALSE}
-  \item{projections}{whether to calculate projections (reconstructions and scores) using the L2 norm ("l2", default) or the L1 norm ("l1")}
-  \item{tolerance}{for testing convergence; if the sum of absolute values of loadings vectors is smaller, then the algorithm terminates} 
-  \item{iterations}{maximum number of iterations in optimization routine}
-  \item{beta}{algorithm parameter to set up bound for weights}
+  \item{X}{data, must be in \code{matrix} or table form.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{center}{whether to center the data using the mean, default is TRUE}
+  \item{projections}{whether to calculate projections (reconstructions and scores) using the L2 norm ("l2", default) or the L1 norm ("l1").}
+  \item{tolerance}{for testing convergence; if the sum of absolute values of loadings vectors is smaller, then the algorithm terminates.} 
+  \item{iterations}{maximum number of iterations in optimization routine.}
+  \item{beta}{algorithm parameter to set up bound for weights.}
 }
 \details{The calculation is performed according to the algorithm described by Park and Klabjan (2016).  The method is an  iteratively reweighted least squares algorithm for L1-norm principal component analysis.}
 \value{
@@ -32,8 +32,8 @@ wl1pca(X, projDim=1, center=TRUE, projections="l2",
 ##for 100x10 data matrix X, 
 ## lying (mostly) in the subspace defined by the first 2 unit vectors, 
 ## projects data into 1 dimension.
-X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) 
-               + matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
+X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) +
+               matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
 mywl1pca <- wl1pca(X)
 
 ##projects data into 2 dimensions.

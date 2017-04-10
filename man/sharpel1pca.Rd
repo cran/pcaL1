@@ -1,15 +1,15 @@
 \name{sharpel1pca}
 \alias{sharpel1pca}
-\title{SharpEL1-PCA}
-\description{Performs a principal component analysis using the algorithm SharpEL1-PCA described by Brooks and Dula (2017, submitted)}
+\title{SharpEl1-PCA}
+\description{Performs a principal component analysis using the algorithm SharpEl1-PCA described by Brooks and Dula (2017, submitted)}
 \usage{
    sharpel1pca(X, projDim=1, center=TRUE, projections="none")
 }
 \arguments{
-  \item{X}{data, must be in \code{matrix} or table form}
-  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1}
-  \item{center}{whether to center the data using the median, default is FALSE}
-  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default)}
+  \item{X}{data, must be in \code{matrix} or table form.}
+  \item{projDim}{number of dimensions to project data into, must be an integer, default is 1.}
+  \item{center}{whether to center the data using the median, default is TRUE.}
+  \item{projections}{whether to calculate reconstructions and scores using the L1 norm ("l1") the L2 norm ("l2") or not at all ("none", default).}
 }
 \details{The calculation is performed according to the algorithm described by Brooks and Dula (2017, submitted).  The algorithm finds successive, orthogonal fitted lines in the data.}
 \value{
@@ -23,8 +23,8 @@
 ##for a 100x10 data matrix X, 
 ## lying (mostly) in the subspace defined by the first 2 unit vectors, 
 ## projects data into 1 dimension.
-X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) 
-                + matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
+X <- matrix(c(runif(100*2, -10, 10), rep(0,100*8)),nrow=100) +
+                matrix(c(rep(0,100*2),rnorm(100*8,0,0.1)),ncol=10)
 mysharpel1pca <- sharpel1pca(X)
 
 ##projects data into 2 dimensions.

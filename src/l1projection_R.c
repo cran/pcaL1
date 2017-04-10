@@ -58,9 +58,6 @@ void l1projection (double *points_XT, int *dataDim, int *q, double *PCs, double 
 
   TERMINATE:
   
-  for (probleminfo.i = 0; probleminfo.i < entityinfo.numentities_n; ++probleminfo.i) {
-    free_and_null ((char **) &probleminfo.aind[probleminfo.i]);
-  }
   free_and_null ((char **) &probleminfo.aind);
   free_and_null ((char **) &probleminfo.rhs);
   free_and_null ((char **) &probleminfo.matbeg);
@@ -94,16 +91,12 @@ static int allocateMemoryProj (ENTITYINFOptr entityinfo, PROBLEMINFOptr problemi
   int numentities_n   = entityinfo->numentities_n;
   int numattributes_m = entityinfo->numattributes_m;
   
-  int i = probleminfo->i;
   int projdim = probleminfo->projdim;
   int numcols = probleminfo->numcols;
 
 
   /* allocate memory for columns */
-  probleminfo->aind   = (int **) malloc ((long unsigned int)numentities_n*sizeof(int *));
-  for (i = 0; i < numentities_n; ++i) {
-    probleminfo->aind[i]   = (int *) malloc ((long unsigned int)projdim*sizeof(int));
-  }
+  probleminfo->aind = (int *) malloc ((long unsigned int)projdim*sizeof(int));
 
   numcols = numentities_n*projdim + 2*numentities_n*numattributes_m;
   probleminfo->obj     = (double *) malloc ((long unsigned int)(numcols) * sizeof (double));

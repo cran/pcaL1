@@ -183,6 +183,7 @@ static int polarityChk(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   double wTSum = probleminfo->wTSum;
   double dotProd = probleminfo->dotProd;
   double normalizer = probleminfo->normalizer;
+  double normx = probleminfo->normx;
 
   int numattributes_m = entityinfo->numattributes_m;
   int numentities_n   = entityinfo->numentities_n;
@@ -195,13 +196,15 @@ static int polarityChk(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
 
   for (i = 0; i < numentities_n ; ++i) {
     dotProd = 0.0;
+    normx = 0.0;
     for (j = 0; j < numattributes_m; ++j) {
       dotProd += probleminfo->wT[j]*points_XT[numattributes_m * i + j];/*obtaining dot product of wT and ith observation */
+      normx += points_XT[numattributes_m*i+j]*points_XT[numattributes_m * i + j];/*obtaining norm of XT */
     }
     if (dotProd < 0.0)
       polarity[i] = -1.0;
     else {
-      if (dotProd == 0.0) {
+      if ((dotProd < (EPSILON)) & (normx > (EPSILON))) {
         probleminfo->dotConv=1;/*saving for convergence check*/
       }
       polarity[i] = 1.0;

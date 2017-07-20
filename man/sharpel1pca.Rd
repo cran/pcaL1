@@ -18,6 +18,7 @@
 \item{scores}{the matrix of projected points.  The matrix has dimension nrow(X) x projDim.}
 \item{dispExp}{the proportion of L1 dispersion explained by the loadings vectors.  Calculated as the L1 dispersion of the score on each component divided by the L1 dispersion in the original data.}
 \item{projPoints}{the matrix of projected points in terms of the original coordinates.  The matrix has dimension nrow(X) x ncol(X).}
+\item{minobjectives}{the L1 distance of points to their projections in the fitted subspace.}
 }
 \examples{
 ##for a 100x10 data matrix X, 

@@ -11,7 +11,6 @@ pcal1 <- function (X, projDim=1, center=TRUE, projections="none", initialize="l2
   }
 
   A <- X
-  X <- X[apply(abs(X),1,sum) > 0,] # get rid of origin points for algorithm
   X <- t(X)
   pcLength <- projDim * (nrow(X))
 

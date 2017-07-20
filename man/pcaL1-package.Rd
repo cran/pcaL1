@@ -11,8 +11,8 @@ This package contains implementations of six principal component analysis method
 \details{
 \tabular{ll}{
 Package: \tab pcaL1\cr
-Version: \tab 1.5.1\cr
-Date: \tab 2017-04-10\cr
+Version: \tab 1.5.2\cr
+Date: \tab 2017-07-20\cr
 License: \tab GPL (>=3)\cr
 URL: \tab http://www.optimization-online.org/DB_HTML/2012/04/3436.html, http://www.coin-or.org\cr SystemRequirements: \tab COIN-OR Clp (>= 1.12.0)\cr
 }
@@ -53,7 +53,7 @@ Maintainer: Paul Brooks <jpbrooks@vcu.edu>
 \item{Ke Q. and Kanade T. (2005) Robust L1 Norm Factorization in the Presence of Outliers and Missing Data by Alternative Convex Programming, \emph{IEEE Conference on Computer Vision and Pattern Recognition}. DOI:10.1109/CVPR.2005.309}
 \item{Kwak N. (2008) Principal Component Analysis Based on L1-Norm Maximization, \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 30: 1672-1680. DOI:10.1109/TPAMI.2008.114}
 \item{Kwak N. (2014) Principal Component Analysis by  Lp-Norm Maximization, \emph{IEEE Transactions on Cybernetics}, 44:594-609. DOI:10.1109/TCYB.2013.2262936}
-\item{Park, Y.W. and Klabjan, D. (2016) Iteratively Reweighted Least Squares Algorithms for L1-Norm Principal Component Analysis, \emph{IEEE International Conference on Data Mining (ICDM)}}
+\item{Park, Y.W. and Klabjan, D. (2016) Iteratively Reweighted Least Squares Algorithms for L1-Norm Principal Component Analysis, \emph{IEEE International Conference on Data Mining (ICDM)}. DOI: 10.1109/ICDM.2016.0054}
 \item{Visentin A., Prestwich S., and Armagan S. T. (2016) Robust Principal Component Analysis by Reverse Iterative Linear Programming, \emph{Joint European Conference on Machine Learning and Knowledge Discovery in Databases},  593-605. DOI:10.1007/978-3-319-46227-1_37}
 \item{Zhou, Y.-H. and Marron, J.S. (2016) Visualization of Robust L1PCA, \emph{Stat}, 5:173-184.  DOI:10.1002/sta4.113}
 }

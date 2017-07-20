@@ -7,7 +7,7 @@
 #define OBJ_INIT DBL_MAX /* initial incumbent value */
 #define VERBOSITY 0  /* pcal1: 3 - print L2 estimate of w at each iteration.  l1pcastar: 1- print projdim, rotation matrix, average error, l 3- projected points in terms of original coords, 4-screen output on, all objective values, best betas, projected points at each iteration, orthogonal direction, columns of rotation matrix at each iteration, initial SVD info, 7 - write points to screen*/
 #define NBMAX 64 /* maximum possible block size, see dgeqrf.f in LAPACK */
-#define EPSILON 0.0000001 /* check if objective is 0, check if wT == wTold */
+#define EPSILON 0.0000001 /* check if objective is 0, check if wT == wTold in pcal1, check if norm of x is 0 in pcal1 */
 
 /* input data */
 struct entityinfo {
@@ -98,6 +98,7 @@ struct probleminfo {
   double wTSum; /* for finding norm-squared of w */
   double Normalizer; /* sqrt of wTSum */
   double dotProd; /* wT . x */
+  double normx; /* x . x */
   double normalizer; /* for normalizing new direction to unit length  */
   int    argmax; /* storing the entity with the largest norm */
   double x; /* for finding norm of points */

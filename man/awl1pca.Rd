@@ -44,5 +44,5 @@ myawl1pca <- awl1pca(X, projDim=2, center=FALSE)
 plot(myawl1pca$scores)
 }
 \references{
-Park, Y.W. and Klabjan, D. (2016) Iteratively Reweighted Least Squares Algorithms for L1-Norm Principal Component Analysis, \emph{IEEE International Conference on Data Mining (ICDM)}, 2016.
+Park, Y.W. and Klabjan, D. (2016) Iteratively Reweighted Least Squares Algorithms for L1-Norm Principal Component Analysis, \emph{IEEE International Conference on Data Mining (ICDM)}, 2016. DOI: 10.1109/ICDM.2016.0054
 }

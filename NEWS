@@ -1,3 +1,8 @@
+Version 1.5.2 - July 2017
+* Repairing projection into orthogonal space for SharpEl1-PCA
+* No longer removing origin points from PCA-L1
+* Edited man pages
+
 Version 1.5.1 - April 2017
 * Updated calculation of L1-norm scores
 * Edited man pages

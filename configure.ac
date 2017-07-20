@@ -1,4 +1,4 @@
-AC_INIT([pcaL1], [1.5.1], [jpbrooks@vcu.edu])
+AC_INIT([pcaL1], [1.5.2], [jpbrooks@vcu.edu])
 
 dnl # --------------------------------------------------------------------
 dnl # R compiler and flags

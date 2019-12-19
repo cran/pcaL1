@@ -1,7 +1,7 @@
 pcalp <- function (X, projDim=1, p = 1.0, center=TRUE, projections="none", initialize="l2pca",solution = "L", epsilon = 0.0000000001, lratio = 0.02)
 {
-  if (class (X) != "matrix") {
-    if (class (X) == "data.frame")
+  if (!inherits(X, "matrix")) {
+    if (inherits(X, "data.frame"))
       X <- as.matrix(X)
     else
       X <- matrix(X, ncol = 1)

@@ -7,7 +7,8 @@ export(awl1pca,
        pcal1,
        pcalp,
        sharpel1pca,
-       wl1pca)
+       wl1pca,
+       weightedL1Distance)
 useDynLib(pcaL1, .registration=TRUE, .fixes="C_")
 S3method(plot, awl1pca)
 S3method(plot, l1pca)

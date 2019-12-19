@@ -1,6 +1,6 @@
 Package: pcaL1
-Version: 1.5.2
-Date: 2017-07-20
+Version: 1.5.3
+Date: 2019-12-17
 Title: L1-Norm PCA Methods
 License: GPL (>= 3)
 Author: Sapan Jot <sapan.madaan@gmail.com>, Paul Brooks
@@ -25,6 +25,6 @@ URL: http://www.optimization-online.org/DB_HTML/2012/04/3436.html,
         http://www.coin-or.org
 SystemRequirements: COIN-OR Clp (>= 1.12.0)
 NeedsCompilation: yes
-Packaged: 2017-07-20 21:15:23 UTC; root
+Packaged: 2019-12-18 19:17:34 UTC; jpbrooks
 Repository: CRAN
-Date/Publication: 2017-07-20 22:59:46 UTC
+Date/Publication: 2019-12-19 06:10:03 UTC

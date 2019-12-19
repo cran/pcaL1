@@ -1,13 +1,13 @@
 l1projection <- function (X, loadings)
 {
-  if (class(X) != "matrix") {
-    if (class(X) == "data.frame")
+  if (!inherits(X, "matrix")) {
+    if (inherits(X, "data.frame"))
       X <- as.matrix(X)
     else
       X <- matrix(X, ncol = 1)
   }
-  if (class(loadings) != "matrix") {
-    if (class(loadings) == "data.frame")
+  if (!inherits(loadings, "matrix")) {
+    if (inherits(loadings, "data.frame"))
       loadings <- as.matrix(loadings)
     else
       loadings <- matrix(loadings, ncol = 1)

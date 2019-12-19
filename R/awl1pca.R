@@ -31,7 +31,7 @@
 #    beta: algorithm parameter to set up bound for weights
 #    gamma: algorithm parameter to determine whether to use approximation formula or prcomp function
 awl1pca <- function(X, projDim = 1, center = TRUE, projections="l2", tolerance = 0.001, iterations = 200, beta = 0.99, gamma = 0.1){
-  if (class(X) == "data.frame") {
+  if (inherits(X, "data.frame")) {
     X <- as.matrix(X)
   }
 

@@ -1,7 +1,7 @@
 l1pca <- function (X, projDim=1, center=TRUE, projections="l1", initialize="l2pca", tolerance=0.0001, iterations=10)
 {
-  if (class(X) != "matrix") {
-    if (class(X) == "data.frame")
+  if (!inherits(X, "matrix")) {
+    if (inherits(X, "data.frame"))
       X <- as.matrix(X)
     else
       X <- matrix(X, ncol = 1)

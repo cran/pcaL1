@@ -79,7 +79,7 @@ int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINF
   for (i = 0; i < 2 * numentities_n; ++i) {
     rhsU[i] = (DBL_MAX);
   }
-  for (i; i < numrows; ++i) {
+  for (i = 2*numentities_n; i < numrows; ++i) {
     rhsU[i] = 0.0;
   }
 
@@ -89,7 +89,7 @@ int solveL1PCAHp (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINF
     matbeg[i] = j;
     j += 2;
   }
-  for (i; i < numcols; ++i) {
+  for (i = numentities_n; i < numcols; ++i) {
     matbeg[i] = j;
     j += numrows;
   }

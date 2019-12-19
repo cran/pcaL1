@@ -1,4 +1,13 @@
-2017-07-20
+2019-12-17  Paul Brooks  <jpbrooks@vcu.edu>
+
+	* awl1pca.R, l1pca.R, l1pcahp.R, l1pcastar.R, l1projection.R, 
+	l2projection.R, pcal1.R, pcalp.R, sharpelpca.R, wl1pca.: Changing 
+	class() to inherits().
+	* weightedL1Distance.R: Function to calculate weighted L1-norm 
+	of points to a subspace.
+	
+2017-07-20 Paul Brooks <jpbrooks@vcu.edu>
+
 	* sharpel1pca.c: Repairing projection into orthogonal space.
 	* pcal1.R: No longer removing points at origin.
 

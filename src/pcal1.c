@@ -22,7 +22,7 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
  int l = probleminfo->l;
  double innerprod = probleminfo->innerprod;
  int initMethod = probleminfo->initMethod;
- FILE *projFile;
+ /*FILE *projFile;*/
 
  int position;
 
@@ -30,7 +30,7 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
    REprintf("%d ", k+1);
    if (k!=0) { /*compute new points_XT for Xj*/ 
     
-     projFile = fopen("projPointsl1pca.txt", "a");
+     /*projFile = fopen("projPointsl1pca.txt", "a");
     
      for (l = 0; l < numattributes_m; ++l) {
        fprintf(projFile, "%f ", probleminfo->wT[l]);
@@ -41,7 +41,7 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
          fprintf(projFile, "%f ", entityinfo->points_XT[numattributes_m*i+l]);
        }
        fprintf(projFile, "\n");
-     }
+     }*/
      for (i = 0; i < numentities_n ; ++i) {
        innerprod = 0.0;
        
@@ -51,13 +51,13 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
        for (j = 0; j < numattributes_m; ++j) {
          position = numattributes_m*i + j;
          entityinfo->points_XT[position] = entityinfo->points_XT[position] - probleminfo->wT[j] * innerprod;
-         fprintf(projFile,"%f ", entityinfo->points_XT[position]);
+         /*fprintf(projFile,"%f ", entityinfo->points_XT[position]);*/
        }
-       fprintf(projFile,"%f ", innerprod);
-       fprintf(projFile,"\n");
+       /*fprintf(projFile,"%f ", innerprod);
+       fprintf(projFile,"\n");*/
      }
-     fflush(projFile);
-     fclose(projFile);
+     /*fflush(projFile);
+     fclose(projFile);*/
    }
    if ((initMethod < 3) || (k != 0)) { /* if user-supplied vector (initMethod = 3), use that on first iteration */
      status = initialize(entityinfo, probleminfo);
@@ -85,13 +85,13 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
    for (j = 0; j < numattributes_m ; ++j) {
      probleminfo->PCs[numattributes_m * k + j] = probleminfo->wT[j];/*save PCs*/
    }
-   projFile = fopen("projPointsl1pca.txt", "a");
+   /*projFile = fopen("projPointsl1pca.txt", "a");
    
    for (l = 0; l < numattributes_m; ++l) {
      fprintf(projFile, "%f ", probleminfo->wT[l]);
    }
    fprintf(projFile, "\n");
-   fclose(projFile);
+   fclose(projFile);*/
  }
  return 0;
 } /* end solvePcaL1 */

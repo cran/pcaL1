@@ -1,4 +1,4 @@
-GNU R package pcaL1: Three L1 Norm PCA Methods
+GNU R package pcaL1: L1-Norm PCA Methods
 
 Installation of the precompiled binary version of the package on Windows
 should work as for any other package:
@@ -19,10 +19,11 @@ install.packages("pcaL1", configure.args="--prefix=/usr/local/coin-Clp", \
                   type="source")
 
 Most Linux distributions have Clp header files and libraries available as a 
-package; for example, Ubuntu Linux has coinor-libclp-dev.  For Mac OS X,
+package; for example, Ubuntu Linux has coinor-libclp-dev; Fedora has coin-or-Clp-devel.  For Mac OS X,
 the necessary files can be installed with Homebrew (https://brew.sh) using:
 
-brew install homebrew/science/coinmp
+brew tap coin-or-tools/coinor
+brew install clp
 
 Otherwise, follow instructions on installing/compiling the libraries from 
 http://www.coin-or.org.

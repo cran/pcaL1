@@ -1,7 +1,7 @@
 sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none") 
 {
-  if (class(X) != "matrix") {
-    if (class(X) == "data.frame")
+  if (!inherits(X, "matrix")) {
+    if (inherits(X, "data.frame"))
       X <- as.matrix(X)
     else
       X <- matrix(X, ncol = 1)

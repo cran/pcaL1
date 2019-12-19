@@ -32,7 +32,7 @@
 #    iterations: sets the number of iterations to run before returning the result, default is 200
 #    beta: algorithm parameter to set up bound for weights
 wl1pca <- function(X, projDim = 1, center = TRUE, projections="l2", tolerance = 0.001, iterations = 200, beta = 0.99){
-  if (class(X) == "data.frame") {
+  if (inherits(X, "data.frame")) {
     X <- as.matrix(X)
   }
 

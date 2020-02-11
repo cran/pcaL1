@@ -1,8 +1,15 @@
-#include <Clp_C_Interface.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 #include <stdio.h>
 #include <assert.h>
 #include <float.h>
 #include <R.h>
+#include <Rmath.h>
+#include <Rinternals.h>
+#include <Clp_C_Interface.h>
+#include <ClpConfig.h>
 #define PATHLENGTH 500 /* length of path name describing location of data file*/
 #define OBJ_INIT DBL_MAX /* initial incumbent value */
 #define VERBOSITY 0  /* pcal1: 3 - print L2 estimate of w at each iteration.  l1pcastar: 1- print projdim, rotation matrix, average error, l 3- projected points in terms of original coords, 4-screen output on, all objective values, best betas, projected points at each iteration, orthogonal direction, columns of rotation matrix at each iteration, initial SVD info, 7 - write points to screen*/
@@ -62,7 +69,7 @@ struct probleminfo {
   double objective;/*stores the objective CLP returns*/
   int    projdim;/*index for the loop-dimension we're projecting into (k-1)*/     
   int    *bestdir;/*stores the best direction for every dimension*/      
-  double *beta;/*betas-coefficients for datapoints in constraint*/
+  double *mybeta;/*betas-coefficients for datapoints in constraint*/
   const double *currBeta; /* pointer to solution for beta */ 
   double minobjective;/*stores the best objective for k linear regression*/
   int    l;/*variable for loop on regression -j (article)*/

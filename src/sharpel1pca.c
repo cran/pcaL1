@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <math.h>
 #include "type.h"
 
 static int cmp(const void *x, const void *y);

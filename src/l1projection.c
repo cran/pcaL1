@@ -1,6 +1,3 @@
-#include "Clp_C_Interface.h"
-#include <stdlib.h>
-#include <math.h>
 #include "type.h"
 
 int solveL1Projection (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
@@ -10,7 +7,7 @@ static int loadClpProblemProj (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinf
 static int optimizeProj (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
 static int getAlphas (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
 static int getProjectedPointsProj (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
-static void dgemmProj (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc); /* multiply A *B = C */
+static void dgemmProj (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc); /* multiply A *B = C */
 
 int solveL1Projection (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   int status = probleminfo->status;
@@ -210,8 +207,8 @@ static int getProjectedPointsProj(ENTITYINFOptr entityinfo, PROBLEMINFOptr probl
 } /* end getProjectedPoints */
 
 
-static void dgemmProj(char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc) { /* multiply A *B = C */
+static void dgemmProj(char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc) { /* multiply A *B = C */
   extern void dgemm_ (const char *transap, const char *transbp, const int *mp, const int *np, const int *kp, double *alphap, double *A, const int *ldap, double *B, const int *ldbp, const double *betap, double *C, const int *ldcp); 
-  dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &beta, C, &ldc);
+  dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &mybeta, C, &ldc);
 } /* end dgemm, multiply A*B */
 

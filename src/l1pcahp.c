@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include "type.h"
 
 static int setupCLPforL1PCAHp (SOLVERINFOptr solverinfo); 

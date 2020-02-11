@@ -1,10 +1,4 @@
-#include "Clp_C_Interface.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <Rmath.h>
 #include "type.h"
-
 
 static int allocateMemory (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 
 int solveL1PCAStar (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
@@ -29,7 +23,7 @@ void l1pcastar (double *points_XT, int *dataDim, int *q, double *PCs)
   probleminfo.betaind   = NULL;
   probleminfo.eplusind  = NULL; 
   probleminfo.eminusind = NULL;
-  probleminfo.beta      = NULL;
+  probleminfo.mybeta      = NULL;
   probleminfo.bestdir   = NULL;
   probleminfo.xpluslambda_Z = NULL;
   probleminfo.xpluslambda_Z2 = NULL;
@@ -98,7 +92,7 @@ TERMINATE:
   free_and_null ((char **) &probleminfo.betaind);
   free_and_null ((char **) &probleminfo.eplusind);
   free_and_null ((char **) &probleminfo.eminusind);
-  free_and_null ((char **) &probleminfo.beta);
+  free_and_null ((char **) &probleminfo.mybeta);
   free_and_null ((char **) &probleminfo.bestdir);
   free_and_null ((char **) &probleminfo.xpluslambda_Z);
   free_and_null ((char **) &probleminfo.xpluslambda_Z2);
@@ -152,7 +146,7 @@ static int allocateMemory (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
   int numfactors = probleminfo->numfactors;
 
   /* allocate memory for best regression */
-  probleminfo->beta      = (double *) malloc ((long unsigned int) numfactors * sizeof (double)); /* keep track of best linear regression */
+  probleminfo->mybeta      = (double *) malloc ((long unsigned int) numfactors * sizeof (double)); /* keep track of best linear regression */
   probleminfo->bestdir   = (int *) malloc ((long unsigned int)numfactors * sizeof (int)); /* to keep track of projections */
 
   /* allocate memory for columns */

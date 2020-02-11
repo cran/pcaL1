@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <Rmath.h>
 #include "type.h"
 
 static int allocateMemoryL1Line (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 

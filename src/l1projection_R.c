@@ -1,8 +1,3 @@
-#include "Clp_C_Interface.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <Rmath.h>
 #include "type.h"
 
 

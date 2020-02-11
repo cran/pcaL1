@@ -1,0 +1,136 @@
+diff ./Makevars.in ../../temp/pcaL1/src/Makevars.in
+1,2c1
+< PKG_CFLAGS=@PKG_CFLAGS@ $(C_VISIBLITY)
+< PKG_CPPFLAGS = @PKG_CPPFLAGS@
+---
+> PKG_CPPFLAGS = @CLP_CPPFLAGS@
+3a3
+> PKG_CFLAGS=$(C_VISIBLITY)
+Only in ./: diff.txt
+diff ./l1pcastar.c ../../temp/pcaL1/src/l1pcastar.c
+1c1
+< #include "type.h"
+---
+> #include <stdbool.h>
+4a5
+> #include "type.h"
+16,17c17,18
+< static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc); /* multiply A *B = C */
+< static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double mybeta, double *y, int incy);  /* multiply Ax = y */
+---
+> static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc); /* multiply A *B = C */
+> static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy);  /* multiply Ax = y */
+296c297
+<     probleminfo->mybeta[i] = probleminfo->currBeta[i];
+---
+>     probleminfo->beta[i] = probleminfo->currBeta[i];
+301c302
+<       REprintf("beta[%d] %f\n", i, probleminfo->mybeta[i]);
+---
+>       REprintf("beta[%d] %f\n", i, probleminfo->beta[i]);
+320c321
+<   const double *mybeta   = probleminfo->mybeta;
+---
+>   const double *beta   = probleminfo->beta;
+334c335
+<       REprintf ("beta %f\n", mybeta[j]);
+---
+>       REprintf ("beta %f\n", beta[j]);
+348c349
+<         xpluslambda_Z[i * (projdim + 1) + bestdir[projdim]] += mybeta[j] * points_XT[i * (projdim + 1) + j];
+---
+>         xpluslambda_Z[i * (projdim + 1) + bestdir[projdim]] += beta[j] * points_XT[i * (projdim + 1) + j];
+410c411
+<         probleminfo->VBeta[projdim * j + i] = probleminfo->Vj[(projdim + 1) * i + j] + probleminfo->Vj[(projdim + 1) * i + bestdir[projdim]] * mybeta[j];
+---
+>         probleminfo->VBeta[projdim * j + i] = probleminfo->Vj[(projdim + 1) * i + j] + probleminfo->Vj[(projdim + 1) * i + bestdir[projdim]] * beta[j];
+483c484
+< static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc) { /* multiply A *B = C */
+---
+> static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc) { /* multiply A *B = C */
+485c486
+<   dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &mybeta, C, &ldc);
+---
+>   dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &beta, C, &ldc);
+488c489
+< static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double mybeta, double *y, int incy) { /* multiply Ax = y */
+---
+> static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy) { /* multiply Ax = y */
+490c491
+<   dgemv_ (&trans, &m, &n, &alpha, A, &lda, x, &incx, &mybeta, y, &incy);
+---
+>   dgemv_ (&trans, &m, &n, &alpha, A, &lda, x, &incx, &beta, y, &incy);
+diff ./l1pcastar_R.c ../../temp/pcaL1/src/l1pcastar_R.c
+1c1,2
+< #include "type.h"
+---
+> #include <stdbool.h>
+> #include "Clp_C_Interface.h"
+6c7
+< #include "Clp_C_Interface.h"
+---
+> #include "type.h"
+32c33
+<   probleminfo.mybeta      = NULL;
+---
+>   probleminfo.beta      = NULL;
+101c102
+<   free_and_null ((char **) &probleminfo.mybeta);
+---
+>   free_and_null ((char **) &probleminfo.beta);
+155c156
+<   probleminfo->mybeta      = (double *) malloc ((long unsigned int) numfactors * sizeof (double)); /* keep track of best linear regression */
+---
+>   probleminfo->beta      = (double *) malloc ((long unsigned int) numfactors * sizeof (double)); /* keep track of best linear regression */
+diff ./l1projection.c ../../temp/pcaL1/src/l1projection.c
+1c1,2
+< #include "type.h"
+---
+> #include <stdbool.h>
+> #include "Clp_C_Interface.h"
+4c5
+< #include "Clp_C_Interface.h"
+---
+> #include "type.h"
+13c14
+< static void dgemmProj (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc); /* multiply A *B = C */
+---
+> static void dgemmProj (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc); /* multiply A *B = C */
+213c214
+< static void dgemmProj(char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc) { /* multiply A *B = C */
+---
+> static void dgemmProj(char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc) { /* multiply A *B = C */
+215c216
+<   dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &mybeta, C, &ldc);
+---
+>   dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &beta, C, &ldc);
+diff ./l1projection_R.c ../../temp/pcaL1/src/l1projection_R.c
+1c1,2
+< #include "type.h"
+---
+> #include <stdbool.h>
+> #include "Clp_C_Interface.h"
+6c7
+< #include "Clp_C_Interface.h"
+---
+> #include "type.h"
+diff ./type.h ../../temp/pcaL1/src/type.h
+1,7d0
+< /* include config.h definitions */
+< #ifdef HAVE_CONFIG_H
+< #include "config.h"
+< #endif /* HAVE_CONFIG_H */
+< 
+< /* include stdbool.h */
+< #ifdef HAVE_STDBOOL_H 
+9,10d1
+< #endif /* HAVE_STDBOOL_H */
+< 
+12d2
+< #include <ClpConfig.h>
+17d6
+< #include <Rinternals.h>
+77c66
+<   double *mybeta;/*betas-coefficients for datapoints in constraint*/
+---
+>   double *beta;/*betas-coefficients for datapoints in constraint*/

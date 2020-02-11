@@ -1,6 +1,3 @@
-#include "Clp_C_Interface.h"
-#include <stdlib.h>
-#include <math.h>
 #include "type.h"
 
 int solveL1PCAStar (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
@@ -13,8 +10,8 @@ static int optimize (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 static int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo); 
 static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);
 static int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, double *S, double *VT, int ldu, double *Umat, int ldvt, double *work, int lwork); /* SVD */
-static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc); /* multiply A *B = C */
-static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy);  /* multiply Ax = y */
+static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc); /* multiply A *B = C */
+static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double mybeta, double *y, int incy);  /* multiply Ax = y */
 
 int solveL1PCAStar (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   int status = probleminfo->status;
@@ -293,12 +290,12 @@ static int getBeta (SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   probleminfo->currBeta = (const double *) Clp_getColSolution (solverinfo->model);
  
   for (i = 0; i < numfactors; ++i) {
-    probleminfo->beta[i] = probleminfo->currBeta[i];
+    probleminfo->mybeta[i] = probleminfo->currBeta[i];
   }
 
   if ((VERBOSITY) >= 4) {
     for (i = 0; i < numfactors; ++i) {
-      REprintf("beta[%d] %f\n", i, probleminfo->beta[i]);
+      REprintf("beta[%d] %f\n", i, probleminfo->mybeta[i]);
     }
   }
   return 0;
@@ -317,7 +314,7 @@ static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr problemi
   int   *bestdir       = probleminfo->bestdir;
   double *xpluslambda_Z  = probleminfo->xpluslambda_Z;
   double *xpluslambda_Z2 = probleminfo->xpluslambda_Z2;
-  const double *beta   = probleminfo->beta;
+  const double *mybeta   = probleminfo->mybeta;
   double *work         = probleminfo->work;
   int    lwork         = probleminfo->lwork;
   double    *S         = probleminfo->S;
@@ -331,7 +328,7 @@ static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr problemi
   if ((VERBOSITY) >= 4) {
     REprintf ("projdim %d bestdir %d \n", projdim, bestdir[projdim]);
     for (j = 0; j <= projdim; ++j) {
-      REprintf ("beta %f\n", beta[j]);
+      REprintf ("beta %f\n", mybeta[j]);
     }
     for (i = 0; i < numentities_n; ++i) {
       for (j = 0; j <= projdim; ++j) {
@@ -345,7 +342,7 @@ static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr problemi
     xpluslambda_Z[i * (projdim + 1)+ bestdir[projdim]] = 0.0;
     for (j = 0; j <= projdim; ++j) {
       if (j != bestdir[projdim]) {
-        xpluslambda_Z[i * (projdim + 1) + bestdir[projdim]] += beta[j] * points_XT[i * (projdim + 1) + j];
+        xpluslambda_Z[i * (projdim + 1) + bestdir[projdim]] += mybeta[j] * points_XT[i * (projdim + 1) + j];
         xpluslambda_Z[i * (projdim + 1) + j] = points_XT[i * (projdim + 1) + j];
       }
     }
@@ -407,7 +404,7 @@ static int getProjectedPoints (ENTITYINFOptr entityinfo, PROBLEMINFOptr problemi
   for (i = 0; i < projdim; ++i) {
     for (j = 0; j < projdim + 1; ++j) {
       if (j != bestdir[projdim]) {
-        probleminfo->VBeta[projdim * j + i] = probleminfo->Vj[(projdim + 1) * i + j] + probleminfo->Vj[(projdim + 1) * i + bestdir[projdim]] * beta[j];
+        probleminfo->VBeta[projdim * j + i] = probleminfo->Vj[(projdim + 1) * i + j] + probleminfo->Vj[(projdim + 1) * i + bestdir[projdim]] * mybeta[j];
       }
       else {
         probleminfo->VBeta[projdim * j + i] = 0.0;
@@ -480,13 +477,13 @@ static int dgesvd (char jobu, char jobvt, int m, int n, double *A, int lda, doub
 } /* end dgesvd, SVD */
 
 
-static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double beta, double *C, int ldc) { /* multiply A *B = C */
+static void dgemm (char transa, char transb, int m, int n, int k, double alpha, double *A, int lda, double *B, int ldb, double mybeta, double *C, int ldc) { /* multiply A *B = C */
   extern void dgemm_ (const char *transap, const char *transbp, const int *mp, const int *np, const int *kp, double *alphap, double *A, const int *ldap, double *B, const int *ldbp, const double *betap, double *C, const int *ldcp); 
-  dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &beta, C, &ldc);
+  dgemm_ (&transa, &transb, &m, &n, &k, &alpha, A, &lda, B, &ldb, &mybeta, C, &ldc);
 } /* end dgemm, multiply A*B */
 
-static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double beta, double *y, int incy) { /* multiply Ax = y */
+static void dgemv (char trans, int m, int n, double alpha, double *A, int lda, double *x, int incx, double mybeta, double *y, int incy) { /* multiply Ax = y */
   extern void dgemv_ (const char *transp, const int *mp, const int *np, double *alphap, double *A, const int *ldap, double *x, const int *incxp, const double *betap, double *y, const int *incyp); 
-  dgemv_ (&trans, &m, &n, &alpha, A, &lda, x, &incx, &beta, y, &incy);
+  dgemv_ (&trans, &m, &n, &alpha, A, &lda, x, &incx, &mybeta, y, &incy);
 } /* end dgemv, multiply Ax */
 

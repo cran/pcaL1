@@ -1,3 +1,7 @@
+Version 1.5.4 - Febuary 2020
+* Including stdbool.h
+* Updating configure.ac
+
 Version 1.5.3 - December 2019
 * Changing class() to inherits()
 * Adding weightedL1Distance.R for weighted L1-norm distances of points to a subspace

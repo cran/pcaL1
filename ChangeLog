@@ -1,3 +1,8 @@
+2020-02-20  Paul Brooks  <jpbrooks@admins-MacBook-Pro.local>
+
+	* type.h: Including stdbool.h.  
+	* configure.ac: Aligned with package clpAPI.
+
 2019-12-17  Paul Brooks  <jpbrooks@vcu.edu>
 
 	* awl1pca.R, l1pca.R, l1pcahp.R, l1pcastar.R, l1projection.R, 

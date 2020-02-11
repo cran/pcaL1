@@ -1,9 +1,3 @@
-/*#include<config.h>*/
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
-#include<Rmath.h>
-#include <time.h>
 #include "type.h"
 
 static int allocateMemoryPcaLp (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo);

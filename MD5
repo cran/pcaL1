@@ -1,5 +1,5 @@
-e72c1d4c2ff448dffb5a8907754cbb95 *ChangeLog
-caa4ee3a734cd8a922ee5e726ffcf9ad *DESCRIPTION
+6b153901eb1e972ce8c9732080fbfdb6 *ChangeLog
+578cb0ba8669f37e4ac8c316f62a5b78 *DESCRIPTION
 aef9330aa680f983852f3cf1a739369b *INSTALL
 49b93bb8e88d44f4ffc45ec071525d1c *NAMESPACE
 f72526545fabfdb155ade7b51763aeb4 *NEWS
@@ -24,8 +24,8 @@ ef04753803df433da34085eade951495 *R/sharpel1pca.R
 9d051913d881d930f77f3c4ca3bf854f *R/wl1pca.R
 96f5bd19048a079a1bc36bd43d199080 *README
 4e574268a8096ccc9e0644c12423a020 *cleanup
-76cff34fcfb5a6ee88975bf36e6d7d0f *configure
-6a054b71b2281b178325cda747425193 *configure.ac
+8241a7d7bfda7197841a73dd2c3d918c *configure
+5673ebe8c653d7092fac8e35e50c2c42 *configure.ac
 c1430c105ecd26c5aaf09f2bfa4d84da *inst/CITATION
 5a8dd65e8625cb04dc95105c33492a99 *man/L2PCA_approx.Rd
 921a2a6d761672b54b346b7c26564d28 *man/awl1pca.Rd
@@ -34,7 +34,7 @@ aa144b9b271e5c0a1f8aad932f906385 *man/l1pca.Rd
 29a430ec89b7b99311fac3152387c904 *man/l1pcastar.Rd
 f478f44bc7e5cf5ec8c51f52c9cf9c44 *man/l1projection.Rd
 5a4ce5a590c52732028fc6b35110d726 *man/l2projection.Rd
-8e9889280f6fca6f59b0d0470fa994c3 *man/pcaL1-package.Rd
+2b8ff0aaa164d14ff265ca36a1b7db4c *man/pcaL1-package.Rd
 b69d050a43d0f647c873dc7ed30b4b4b *man/pcal1.Rd
 7560b20d330974be79c65de6a76bf777 *man/pcalp.Rd
 21c3b603b5c06374b59add56794866a5 *man/plot.awl1pca.Rd

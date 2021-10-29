@@ -1,4 +1,8 @@
-2020-02-20  Paul Brooks  <jpbrooks@admins-MacBook-Pro.local>
+2021-10-29  Paul Brooks  <jpbrooks@vcu.edu>
+
+	* configure.ac: autoupdate applied.
+
+2020-02-20  Paul Brooks  <jpbrooks@vcu.edu>
 
 	* type.h: Including stdbool.h.  
 	* configure.ac: Aligned with package clpAPI.

@@ -32,6 +32,8 @@ int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
 
   int index = probleminfo->index;
 
+  /*REprintf("got here\n");*/
+
   for (k = 0; k < q; ++k) { 
     minobjective = (OBJ_INIT); /* objective for the best coordinate to fix */
     for (l = 0; l < numattributes_m; ++l) {

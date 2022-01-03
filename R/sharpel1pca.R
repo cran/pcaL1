@@ -7,10 +7,11 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
       X <- matrix(X, ncol = 1)
   }
   if(center){
-    X <- apply(X,2,function(y) y - median(y));
+    X <- apply(X,2,function(y) y - median(y, na.rm=TRUE));
   }
 
   X <- t(X)
+
 
   pcLength    <- nrow(X) * projDim
   scoreLength <- 0
@@ -22,6 +23,7 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
   if (projections != "none") {
     projLength  <- nrow(X) * ncol(X)
   }
+  print("got here first")
 
 #  sol <- .C ("sharpel1pca", as.double(X), as.integer(dim(X)), as.integer(projDim), as.integer(scores), loadings=double(pcLength), scores=double(scoreLength), objectives=double(projDim), PACKAGE="pcaL1")
   sol <- .C (C_sharpel1pca, as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), objectives=double(projDim), PACKAGE="pcaL1")

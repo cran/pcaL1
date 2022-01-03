@@ -1,3 +1,7 @@
+2022-01-03  Paul Brooks  <jpbrooks@vcu.edu>
+
+	* Makevars.ucrt: To use libraries from Rtools42.
+
 2021-10-29  Paul Brooks  <jpbrooks@vcu.edu>
 
 	* configure.ac: autoupdate applied.

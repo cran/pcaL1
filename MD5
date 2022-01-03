@@ -1,8 +1,8 @@
-6b153901eb1e972ce8c9732080fbfdb6 *ChangeLog
-578cb0ba8669f37e4ac8c316f62a5b78 *DESCRIPTION
+8ea2dee938781ce8d2eac504d3f5c853 *ChangeLog
+3096318873cb5ee0de965ab3f0adff55 *DESCRIPTION
 aef9330aa680f983852f3cf1a739369b *INSTALL
 49b93bb8e88d44f4ffc45ec071525d1c *NAMESPACE
-f72526545fabfdb155ade7b51763aeb4 *NEWS
+ad2542979651638a3df7e370330f0e26 *NEWS
 915985c28978ca0cb26d19d732e5e217 *R/awl1pca.R
 81c0cd42f5a7d5e3a1cf11fd1b446236 *R/l1pca.R
 d7ba31ddcc15595274112ccc453a38fa *R/l1pcahp.R
@@ -19,13 +19,13 @@ d3eff6235d6769aa31ae52a487c14440 *R/plot.pcal1.R
 c10f1ee19d9a73f627c628da75cf904f *R/plot.pcalp.R
 fe026d46b41d88141eb729252bb6d60a *R/plot.sharpel1pca.R
 0ced1380f0b6d1c3debfc5d7fff96e11 *R/plot.wl1pca.R
-ef04753803df433da34085eade951495 *R/sharpel1pca.R
+12f002202934ac2a662cf35531c74573 *R/sharpel1pca.R
 184ca1dd0ed74658ac69d0f12ec782da *R/weightedL1Distance.R
 9d051913d881d930f77f3c4ca3bf854f *R/wl1pca.R
 96f5bd19048a079a1bc36bd43d199080 *README
 4e574268a8096ccc9e0644c12423a020 *cleanup
-8241a7d7bfda7197841a73dd2c3d918c *configure
-5673ebe8c653d7092fac8e35e50c2c42 *configure.ac
+8bd559e0fc9b59c927df0bed30ebd9ac *configure
+a0129b81f6b76458ad7b1f6ab63a6ecc *configure.ac
 c1430c105ecd26c5aaf09f2bfa4d84da *inst/CITATION
 5a8dd65e8625cb04dc95105c33492a99 *man/L2PCA_approx.Rd
 921a2a6d761672b54b346b7c26564d28 *man/awl1pca.Rd
@@ -34,7 +34,7 @@ aa144b9b271e5c0a1f8aad932f906385 *man/l1pca.Rd
 29a430ec89b7b99311fac3152387c904 *man/l1pcastar.Rd
 f478f44bc7e5cf5ec8c51f52c9cf9c44 *man/l1projection.Rd
 5a4ce5a590c52732028fc6b35110d726 *man/l2projection.Rd
-2b8ff0aaa164d14ff265ca36a1b7db4c *man/pcaL1-package.Rd
+b7e15a96c38a4003d617d2c13007a6bb *man/pcaL1-package.Rd
 b69d050a43d0f647c873dc7ed30b4b4b *man/pcal1.Rd
 7560b20d330974be79c65de6a76bf777 *man/pcalp.Rd
 21c3b603b5c06374b59add56794866a5 *man/plot.awl1pca.Rd
@@ -49,6 +49,7 @@ fc32e4efbfed1e4a790b5d71f2080095 *man/sharpel1pca.Rd
 8ab5a9f9fb7483d5fad8f7973bcaf5fa *man/weightedL1Distance.Rd
 780b2721e514d14894320c6feddd0ab8 *man/wl1pca.Rd
 da7f6edd30818cf89996410bbf979e0a *src/Makevars.in
+2ddcea3848f8237f20ff07643dbb26f1 *src/Makevars.ucrt
 849f6fe890d13230ffc5829ba2cb2b22 *src/Makevars.win
 64c98d60ced7bce42badcbb950c15e85 *src/diff.txt
 f23448ed9548d70d66e9fdbfef1e1b43 *src/init.c
@@ -65,6 +66,6 @@ df814b7b6d399ed50b037d0f070bec8e *src/pcaL1-win.def
 a4d5fa687d36d776177132be6f8a691b *src/pcal1_R.c
 bc9e7fa8deaf0f712c876588a29a1270 *src/pcalp.c
 9d1dbeea14a35ad4cea7c189250f97c6 *src/pcalp_R.c
-2987ea1d360614e2cb43a98fabff3648 *src/sharpel1pca.c
-01c8b21585c99d5e52b14e3d84a0e83a *src/sharpel1pca_R.c
+9c9f7a34045015c5bc396cfd6cf28c48 *src/sharpel1pca.c
+767ae6979e81af0eb88fd2bd62e9ccd2 *src/sharpel1pca_R.c
 fcf3a58d2e299a4f9dfc9362fe1b292e *src/type.h

@@ -1,0 +1,2 @@
+PKG_CPPFLAGS=-D_R_=1 -DUSE_R=1 -I${R_TOOLS_SOFT}/include/coin
+PKG_LIBS=-lClp -lCoinUtils -lstdc++ $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lz -lbz2

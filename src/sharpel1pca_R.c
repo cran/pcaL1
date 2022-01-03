@@ -12,6 +12,8 @@ void sharpel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *
   ENTITYINFO entityinfo;
   SOLVERINFO  solverinfo;
   PROBLEMINFO  probleminfo;
+
+  REprintf("in C\n");
   
   probleminfo.status = 0;
   int status        = probleminfo.status;
@@ -37,6 +39,8 @@ void sharpel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *
   entityinfo.points_XT = points_XT; /* transpose of data matrix */
 
   probleminfo.q = *q; /* desired number of PCs */
+
+
 
   status = allocateMemoryL1Line(&entityinfo, &probleminfo);
   if (status) {

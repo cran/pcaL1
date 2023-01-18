@@ -19,7 +19,7 @@ l1projection <- function (X, loadings)
 
   projLength <- nrow(X) * ncol(X) 
 
-  sol <- .C (C_l1projection, as.double(X), as.integer(dim(X)), as.integer(projDim), as.double(loadings), projPoints=double(projLength), alphas=double(ncol(X)*projDim), PACKAGE="pcaL1")
+  sol <- .C (C_l1projection, as.double(X), as.integer(dim(X)), as.integer(projDim), as.double(loadings), projPoints=double(projLength), alphas=double(ncol(X)*projDim), NAOK=TRUE, PACKAGE="pcaL1")
 
   solution <- new.env()
 

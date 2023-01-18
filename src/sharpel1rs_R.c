@@ -1,12 +1,12 @@
 #include "type.h"
 
-static int allocateMemoryL1Line (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 
-int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
+static int allocateMemoryL1rs (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo); 
+int solveSharpeL1rs (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
 static void
    free_and_null (char **ptr);
 
-void sharpel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *objectives) 
+void sharpel1rs(double *points_XT, int *dataDim, int *q, double *PCs, double *objectives) 
 {
  
   ENTITYINFO entityinfo;
@@ -38,13 +38,13 @@ void sharpel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *
 
   probleminfo.q = *q; /* desired number of PCs */
 
-  status = allocateMemoryL1Line(&entityinfo, &probleminfo);
+  status = allocateMemoryL1rs(&entityinfo, &probleminfo);
   if (status) {
     REprintf ("Unable to allocate memory\n");
     goto TERMINATE;
   }
 
-  status = solveSharpeL1PCA( &entityinfo, &solverinfo, &probleminfo); /* in l1line.c*/
+  status = solveSharpeL1rs( &entityinfo, &solverinfo, &probleminfo); /* in l1line.c*/
   if (status) {
     REprintf ("Unable to solve.  Terminating...; or done\n");
     goto TERMINATE;
@@ -68,7 +68,7 @@ free_and_null (char **ptr) {
   }
 } /* END free_and_null */  
 
-static int allocateMemoryL1Line (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
+static int allocateMemoryL1rs (ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
   int numentities_n   = entityinfo->numentities_n;
   int numattributes_m = entityinfo->numattributes_m;
 
@@ -78,5 +78,5 @@ static int allocateMemoryL1Line (ENTITYINFOptr entityinfo, PROBLEMINFOptr proble
   probleminfo->v = (double *) malloc(numattributes_m*sizeof(double));
 
   return 0;
-} /* end allocateMemoryL1Line */
+} /* end allocateMemoryL1rs */
 

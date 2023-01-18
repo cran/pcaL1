@@ -10,6 +10,9 @@ void l1projection (double *points_XT, int *dataDim, int *q, double *PCs, double 
 void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMethod, double *initV);
 void pcalp (double *points_XT, int *dataDim, int *q, double *p, double *PCs, int *initMethod, int *solMethod, double *initV, double *epsilon, double *lratio);
 void sharpel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *objectives);
+void sharpel1rs(double *points_XT, int *dataDim, int *q, double *PCs, double *objectives); 
+void sparsel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *objectives, double *lambdas_out);
+
 
 #define C_DEF(name, n) {#name, (DL_FUNC) &name, n}
 
@@ -21,6 +24,8 @@ static const R_CMethodDef cMethods[] = {
   C_DEF(pcal1, 6),
   C_DEF(pcalp, 10),
   C_DEF(sharpel1pca, 5),
+  C_DEF(sharpel1rs, 5),
+  C_DEF(sparsel1pca, 6),
   {NULL, NULL, 0}
 };
 

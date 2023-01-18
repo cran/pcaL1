@@ -1,4 +1,4 @@
-sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none") 
+sharpel1rs <- function (X, projDim=1, center=TRUE, projections="none") 
 {
   if (!inherits(X, "matrix")) {
     if (inherits(X, "data.frame"))
@@ -7,12 +7,13 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
       X <- matrix(X, ncol = 1)
   }
   if(center){
-    X <- apply(X,2,function(y) y - median(y));
+    X <- apply(X,2,function(y) y - median(y, na.rm = TRUE));
   }
 
   X <- t(X)
 
   pcLength    <- nrow(X) * projDim
+  print(pcLength)
   scoreLength <- 0
   projLength <- 0
   objLength <- 0
@@ -23,8 +24,7 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
     projLength  <- nrow(X) * ncol(X)
   }
 
-#  sol <- .C ("sharpel1pca", as.double(X), as.integer(dim(X)), as.integer(projDim), as.integer(scores), loadings=double(pcLength), scores=double(scoreLength), objectives=double(projDim), PACKAGE="pcaL1")
-  sol <- .C (C_sharpel1pca, as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), objectives=double(projDim), PACKAGE="pcaL1")
+  sol <- .C(C_sharpel1rs, as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), objectives=double(projDim), PACKAGE="pcaL1", NAOK = TRUE)
 
   solution <- new.env()
   solution$loadings <- matrix(sol[["loadings"]], ncol=projDim, byrow=FALSE)
@@ -56,6 +56,7 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
   }
   
   solution <- as.list(solution)
-  class(solution) <- "sharpel1pca"
+  class(solution) <- "sharpel1rs"
   solution
 }
+

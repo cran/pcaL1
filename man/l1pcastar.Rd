@@ -35,7 +35,7 @@ plot(myl1pcastar$scores)
 }
 \references{
   \enumerate{
-  \item{Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007}
+  \item{Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics & Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007}
   \item{Zhou, Y.-H. and Marron, J.S. (2016) Visualization of Robust L1PCA, \emph{Stat}, 5:173-184.  DOI:10.1002/sta4.113}
   }
 }

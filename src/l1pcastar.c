@@ -168,7 +168,7 @@ static int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, P
   int i       = probleminfo->i;
   int j       = probleminfo->j;
   double *obj = probleminfo->obj;
-  char   **colname = probleminfo->colname;
+  /*char   **colname = probleminfo->colname;*/
   int    rcnt    = probleminfo->rcnt;
   int    nzcnt   = probleminfo->nzcnt;
   double *rhs    = probleminfo->rhs;
@@ -194,7 +194,7 @@ static int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, P
     obj[numcols] = 0.0;
     probleminfo->lb[numcols]=-(DBL_MAX);
     probleminfo->ub[numcols]=DBL_MAX;
-    sprintf (colname[numcols], "beta_%d", j);
+    /*sprintf (colname[numcols], "beta_%d", j);*/
     for (i = 0; i < numentities_n; ++i) {
       if (points_XT[i*(projdim + 1) + j]!=0.0) {
         matind[nzcnt]=i;
@@ -210,7 +210,7 @@ static int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, P
     obj[numcols] = 1.0;
     probleminfo->lb[numcols]  = 0.0;
     probleminfo->ub[numcols]=(DBL_MAX);
-    sprintf (colname[numcols], "eplus_%d", i);
+    /*sprintf (colname[numcols], "eplus_%d", i);*/
     matind[nzcnt] = i;
     matval[nzcnt] = 1.0;
     ++nzcnt;
@@ -222,7 +222,7 @@ static int loadClpProblem (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, P
     obj[numcols] = 1.0;
     probleminfo->lb[numcols]  = 0.0;
     probleminfo->ub[numcols]  =(DBL_MAX);/* (CPX_INFBOUND);*/
-    sprintf (colname[numcols], "eminus_%d", i);
+    /*sprintf (colname[numcols], "eminus_%d", i);*/
     matind[nzcnt] = i;
     matval[nzcnt] = -1.0;
     ++nzcnt;

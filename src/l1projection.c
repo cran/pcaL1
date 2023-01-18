@@ -76,15 +76,19 @@ static int loadClpProblemProj (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinf
   int    projdim = probleminfo->projdim;
   double    *lb  = probleminfo->lb;
   double    *ub  = probleminfo->ub;
+  int numrows    = probleminfo->numrows;
 
   double *points_XT   = entityinfo->points_XT;
   int numattributes_m = entityinfo->numattributes_m;
   double *PCs         = entityinfo->PCs;
 
+
   rcnt = 0;
   for (j = 0; j < numattributes_m; ++j) {
-    rhs[rcnt] = points_XT[i*numattributes_m + j];
-    ++rcnt;
+    if(points_XT[i*numattributes_m + j]==points_XT[i*numattributes_m + j]){
+      rhs[rcnt] = points_XT[i*numattributes_m + j];
+      ++rcnt;
+    }
   }
   
 
@@ -98,45 +102,58 @@ static int loadClpProblemProj (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinf
     lb[numcols] = -(DBL_MAX);
     ub[numcols] = DBL_MAX;
     /*sprintf (colname[numcols], "alpha_%d_%d",i,k);*/
+    numrows = 0;
     for (j = 0; j < numattributes_m; ++j) {
-      matind[nzcnt] = j;
-      matval[nzcnt] = PCs[k*numattributes_m + j];  
-      ++nzcnt;
+      if(points_XT[i*numattributes_m + j]==points_XT[i*numattributes_m + j]){
+         matind[nzcnt] = numrows;
+         matval[nzcnt] = PCs[k*numattributes_m + j];  
+         ++nzcnt;
+         ++numrows;
+      }
     }
     ++numcols;
-  }
-  
       
+  }
+      
+  numrows = 0;
   for (j = 0; j < numattributes_m; ++j) {
-    matbeg[numcols] = nzcnt;
-   /* probleminfo->lplus[i][j] = numcols;*/
-    obj[numcols] = 1.0;
-    lb[numcols] = 0.0;
-    ub[numcols] = DBL_MAX;
-    /*sprintf (colname[numcols], "lplus_%d_%d",i,j);*/
-    matind[nzcnt] = j;
-    matval[nzcnt] = 1.0;
-    ++nzcnt;
-    ++numcols;
+    if(points_XT[i*numattributes_m + j]==points_XT[i*numattributes_m + j]){
+      matbeg[numcols] = nzcnt;
+     /* probleminfo->lplus[i][j] = numcols;*/
+      obj[numcols] = 1.0;
+      lb[numcols] = 0.0;
+      ub[numcols] = DBL_MAX;
+      /*sprintf (colname[numcols], "lplus_%d_%d",i,j);*/
+      matind[nzcnt] = numrows;
+      matval[nzcnt] = 1.0;
+      ++nzcnt;
+      ++numcols;
+      ++numrows;
+    }
   }
   
+  numrows = 0;
   for (j = 0; j < numattributes_m; ++j) {
-    matbeg[numcols] = nzcnt;
-    /*probleminfo->lminus[i][j] = numcols;*/
-    obj[numcols] = 1.0;
-    lb[numcols] = 0.0;
-    ub[numcols] = DBL_MAX;
-    /*sprintf (colname[numcols], "lminus_%d_%d",i,j);*/
-    matind[nzcnt] = j;
-    matval[nzcnt] = -1.0;
-    ++nzcnt;
-    ++numcols;
+    if(points_XT[i*numattributes_m + j]==points_XT[i*numattributes_m + j]){
+      matbeg[numcols] = nzcnt;
+      /*probleminfo->lminus[i][j] = numcols;*/
+      obj[numcols] = 1.0;
+      lb[numcols] = 0.0;
+      ub[numcols] = DBL_MAX;
+      /*sprintf (colname[numcols], "lminus_%d_%d",i,j);*/
+      matind[nzcnt] = numrows;
+      matval[nzcnt] = -1.0;
+      ++nzcnt;
+      ++numcols;
+      ++numrows;
+    }
   }
 
   matbeg[numcols] = nzcnt;
 
   Clp_loadProblem(solverinfo->model, numcols, rcnt, matbeg, matind, matval, lb, ub, obj, rhs, rhs);
-  
+  /*Clp_writeMps(solverinfo->model, "test.mps", 0, 1, 1.0);*/
+
   return 0;
 } /* end loadClpProblem */
 
@@ -145,6 +162,7 @@ static int optimizeProj(SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
 
   int status  = probleminfo->status;
   int solstat = probleminfo->solstat;
+
 
   status=Clp_dual(solverinfo->model, 0);
   if (status) {
@@ -162,6 +180,7 @@ static int optimizeProj(SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   if ((VERBOSITY) >= 4) {
     REprintf ("objective value %f\n", probleminfo->objective);
   }
+
 
   return 0;
 } /* end optimize */

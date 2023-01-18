@@ -6,13 +6,13 @@
 pcaL1: L1-Norm PCA Methods
 }
 \description{
-This package contains implementations of six principal component analysis methods using the L1 norm.  The package depends on COIN-OR Clp version >= 1.12.0.  The methods implemented are PCA-L1 (Kwak 2008), L1-PCA (Ke and Kanade 2003, 2005), L1-PCA* (Brooks, Dula, and Boone 2013), L1-PCAhp (Visentin, Prestwich and Armagan 2016), wPCA (Park and Klabjan 2016), and awPCA (Park and Klabjan 2016).
+This package contains implementations of six principal component analysis methods using the L1 norm.  The package depends on COIN-OR Clp version >= 1.17.4.  The methods implemented are PCA-L1 (Kwak 2008), L1-PCA (Ke and Kanade 2003, 2005), L1-PCA* (Brooks, Dula, and Boone 2013), L1-PCAhp (Visentin, Prestwich and Armagan 2016), wPCA (Park and Klabjan 2016), and awPCA (Park and Klabjan 2016).
 }
 \details{
 \tabular{ll}{
 Package: \tab pcaL1\cr
-Version: \tab 1.5.6\cr
-Date: \tab 2022-01-03\cr
+Version: \tab 1.5.7\cr
+Date: \tab 2023-01-16\cr
 License: \tab GPL (>=3)\cr
 URL: \tab http://www.optimization-online.org/DB_HTML/2012/04/3436.html, http://www.coin-or.org\cr SystemRequirements: \tab COIN-OR Clp (>= 1.17.4)\cr
 }
@@ -38,6 +38,8 @@ plot.pcalp              Plot a pcalp Object
 plot.wl1pca             Plot an wl1pca Object
 plot.sharpel1pca        Plot a sharpel1pca Object
 sharpel1pca             SharpeEL1-PCA
+sharpel1rs              SharpEl1-RS
+sparsel1pca             SparseEl1-PCA
 wl1pca                  wPCA 
 }
 }
@@ -49,7 +51,7 @@ Maintainer: Paul Brooks <jpbrooks@vcu.edu>
 \references{
 \enumerate{
 \item{Brooks and Dula (2017) Estimating L1-Norm Best-Fit Lines, submitted}
-\item{Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics \& Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007}
+\item{Brooks J.P., Dula J.H., and Boone E.L. (2013) A Pure L1-Norm Princpal Component Analysis, \emph{Computational Statistics & Data Analysis}, 61:83-98. DOI:10.1016/j.csda.2012.11.007}
 \item{Ke Q. and Kanade T. (2005) Robust L1 Norm Factorization in the Presence of Outliers and Missing Data by Alternative Convex Programming, \emph{IEEE Conference on Computer Vision and Pattern Recognition}. DOI:10.1109/CVPR.2005.309}
 \item{Kwak N. (2008) Principal Component Analysis Based on L1-Norm Maximization, \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 30: 1672-1680. DOI:10.1109/TPAMI.2008.114}
 \item{Kwak N. (2014) Principal Component Analysis by  Lp-Norm Maximization, \emph{IEEE Transactions on Cybernetics}, 44:594-609. DOI:10.1109/TCYB.2013.2262936}

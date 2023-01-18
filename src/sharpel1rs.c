@@ -1,9 +1,9 @@
 #include "type.h"
 
-static int cmp(const void *x, const void *y);
-int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
+static int cmprs(const void *x, const void *y);
+int solveSharpeL1rs (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo);
 
-int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
+int solveSharpeL1rs (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLEMINFOptr probleminfo) {
   int numattributes_m = entityinfo->numattributes_m;
   int numentities_n   = entityinfo->numentities_n;
  
@@ -45,16 +45,19 @@ int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
 	  sumWeights = 0.0;
 	  index = 0;
           for (i = 0; i < numentities_n; ++i) {
-	    if (entityinfo->points_XT[numattributes_m*i+l] != 0.0) {
-	      ratios[index] = entityinfo->points_XT[numattributes_m*i+j]/entityinfo->points_XT[numattributes_m*i+l]; /* store ratios */
+	    if (entityinfo->points_XT[numattributes_m*i+l] != 0.0 && entityinfo->points_XT[numattributes_m*i+l] == entityinfo->points_XT[numattributes_m*i+l]) {
+	      if(entityinfo->points_XT[numattributes_m*i+j]== entityinfo->points_XT[numattributes_m*i+j]){  /* check if missing */
+	        ratios[index] = entityinfo->points_XT[numattributes_m*i+j]/entityinfo->points_XT[numattributes_m*i+l]; /* store ratios */
               tosort[index]=&(ratios[index]); /* sort the pointers to the ratios */
-	      sumWeights += fabs(entityinfo->points_XT[numattributes_m*i+l]);
-	      weights[index] = fabs(entityinfo->points_XT[numattributes_m*i+l]);
-	      index += 1;
+	        sumWeights += fabs(entityinfo->points_XT[numattributes_m*i+l]);
+	        weights[index] = fabs(entityinfo->points_XT[numattributes_m*i+l]);
+	        index += 1;
+	      }
 	    }
 	  }
+	    
 	  /* get weighted median */
-	  qsort(tosort, index,sizeof(double *),cmp); 
+	  qsort(tosort, index,sizeof(double *),cmprs); 
 
 	  medWeight = 0.0;
 	  for (i = 0; i < index; ++i) {
@@ -76,7 +79,9 @@ int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
       for (i = 0; i < numentities_n; ++i) {
 	for (j = 0; j < numattributes_m; ++j) {
 	  if (j != l) {
-	    objective += fabs(entityinfo->points_XT[numattributes_m*i+j] - entityinfo->points_XT[numattributes_m*i+l]*v[j]);
+	    if(entityinfo->points_XT[numattributes_m*i+j]==entityinfo->points_XT[numattributes_m*i+j] && entityinfo->points_XT[numattributes_m*i+l]*v[j]==entityinfo->points_XT[numattributes_m*i+l]*v[j]){
+	      objective += fabs(entityinfo->points_XT[numattributes_m*i+j] - entityinfo->points_XT[numattributes_m*i+l]*v[j]);
+	    }
 	  }
 	}
       }
@@ -180,7 +185,7 @@ int solveSharpeL1PCA (ENTITYINFOptr entityinfo, SOLVERINFOptr solverinfo, PROBLE
 } /*end solveproblem */
 
 
-static int cmp(const void *x, const void *y) {
+static int cmprs(const void *x, const void *y) {
   const double **xx = (const double **)x;
   const double **yy = (const double **)y;
   if (**xx < **yy) return -1;

@@ -1,4 +1,4 @@
-sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none") 
+sparsel1pca <- function (X, projDim=1, center=TRUE, projections="none", lambda=0) 
 {
   if (!inherits(X, "matrix")) {
     if (inherits(X, "data.frame"))
@@ -23,8 +23,20 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
     projLength  <- nrow(X) * ncol(X)
   }
 
-#  sol <- .C ("sharpel1pca", as.double(X), as.integer(dim(X)), as.integer(projDim), as.integer(scores), loadings=double(pcLength), scores=double(scoreLength), objectives=double(projDim), PACKAGE="pcaL1")
-  sol <- .C (C_sharpel1pca, as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), objectives=double(projDim), PACKAGE="pcaL1")
+#  sol <- .C ("sparsel1pca", as.double(X), as.integer(dim(X)), as.integer(projDim), as.integer(scores), loadings=double(pcLength), scores=double(scoreLength), objectives=double(projDim), PACKAGE="pcaL1")
+
+  if ((lambda < 0) & (ncol(X) > 100)){
+    stop("Too many rows to calculate all lambdas. Specify a particular lambda.")
+  } else if (lambda < 0) {
+   pcLength    <- 1000*ncol(X)
+   lambdas_out <- rep(-1,1000)
+  } else {
+    pcLength    <- nrow(X) * projDim
+    lambdas_out <- c(lambda,0)
+  }
+
+  sol <- .C (C_sparsel1pca, as.double(X), as.integer(dim(X)), as.integer(projDim), loadings=double(pcLength), objectives=double(projDim), lambdas_out=as.double(lambdas_out), PACKAGE="pcaL1")
+  
 
   solution <- new.env()
   solution$loadings <- matrix(sol[["loadings"]], ncol=projDim, byrow=FALSE)
@@ -54,8 +66,21 @@ sharpel1pca <- function (X, projDim=1, center=TRUE, projections="none")
     scoreDisp <- apply(solution$scores, 2, var)
     solution$dispExp <- scoreDisp/totalDisp
   }
+
+  if (lambda < 0) {
+    num_lambdas <- length(lambdas_out)
+    solution$loadings <- matrix(sol[["loadings"]][1:(num_lambdas*nrow(X))], ncol=num_lambdas, byrow=FALSE)
+    solution$lambdas <- sol[["lambdas_out"]][1:num_lambdas]
+    solution$loadings <- solution$loadings[,order(solution$lambdas)]
+    solution$lambdas <- sort(solution$lambdas)
+    solution$lambdas <- solution$lambdas[!duplicated(solution$loadings, MARGIN=2)]
+    solution$loadings <- unique(solution$loadings, MARGIN=2)
+  } else{
+    solution$loadings <- matrix(sol[["loadings"]], ncol=projDim, byrow=FALSE)
+    solution$minobjectives <- sol[["objectives"]]
+  }
   
   solution <- as.list(solution)
-  class(solution) <- "sharpel1pca"
+  class(solution) <- "sparsel1pca"
   solution
 }

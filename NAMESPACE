@@ -7,6 +7,8 @@ export(awl1pca,
        pcal1,
        pcalp,
        sharpel1pca,
+       sharpel1rs,
+       sparsel1pca,
        wl1pca,
        weightedL1Distance)
 useDynLib(pcaL1, .registration=TRUE, .fixes="C_")
@@ -17,6 +19,7 @@ S3method(plot, l1pcahp)
 S3method(plot, pcal1)
 S3method(plot, pcalp)
 S3method(plot, sharpel1pca)
+S3method(plot, sharpel1rs)
 S3method(plot, wl1pca)
 importFrom("graphics", "plot")
 importFrom("stats", "median", "prcomp", "runif", "var")

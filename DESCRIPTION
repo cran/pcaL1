@@ -1,6 +1,6 @@
 Package: pcaL1
-Version: 1.5.6
-Date: 2022-01-03
+Version: 1.5.7
+Date: 2023-01-16
 Title: L1-Norm PCA Methods
 License: GPL (>= 3)
 Author: Sapan Jot <sapan.madaan@gmail.com>, Paul Brooks
@@ -21,10 +21,9 @@ Description: Implementations of several methods for principal component analysis
         awPCA (Park and Klabjan 2016) <DOI: 10.1109/ICDM.2016.0054>,
         PCA-Lp (Kwak 2014) <DOI:10.1109/TCYB.2013.2262936>, and
         SharpEl1-PCA (Brooks and Dula, submitted).
-URL: http://www.optimization-online.org/DB_HTML/2012/04/3436.html,
-        https://www.coin-or.org
+URL:
 SystemRequirements: COIN-OR Clp (>= 1.17.4)
 NeedsCompilation: yes
+Packaged: 2023-01-18 16:07:36 UTC; jpbrooks
 Repository: CRAN
-Packaged: 2022-01-03 21:46:57 UTC; jpbrooks
-Date/Publication: 2022-01-04 00:40:05 UTC
+Date/Publication: 2023-01-18 18:00:02 UTC

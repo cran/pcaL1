@@ -15,6 +15,7 @@
 #define VERBOSITY 0  /* pcal1: 3 - print L2 estimate of w at each iteration.  l1pcastar: 1- print projdim, rotation matrix, average error, l 3- projected points in terms of original coords, 4-screen output on, all objective values, best betas, projected points at each iteration, orthogonal direction, columns of rotation matrix at each iteration, initial SVD info, 7 - write points to screen*/
 #define NBMAX 64 /* maximum possible block size, see dgeqrf.f in LAPACK */
 #define EPSILON 0.0000001 /* check if objective is 0, check if wT == wTold in pcal1, check if norm of x is 0 in pcal1 */
+#define MAXLAMBDAS 1000 /* maximum number of lambdas to store */
 
 /* input data */
 struct entityinfo {
@@ -163,7 +164,7 @@ struct probleminfo {
   double x_obj; /*previous objective function*/
   double *point; /*most recent projection we ar trying to improve*/
   const double *alpha; /*most recent projection we ar trying to improve*/
-  int numrows;
+  int numrows; /* also used in l1projection */
 
   /* for l1projection */
   int *aind; /* index of alpha variables */
@@ -177,6 +178,35 @@ struct probleminfo {
   double epsilon; /*user define tolerance for the convergence check*/
   double *Dw; /*gradient */
   double pNormValue; /* wT . x */
+
+  /* for sparsEl */
+  double *lambdas; /* breakpoints for regularization parameter */
+  int num_lambdas; /* number of breakpoints */
+  double lambda_max; /* largest breakpoint; beyond this value, v_j = 0 */
+  int **num_lambdas_lj; /* number of breakpoints for fixed coord l and coord j */
+  double sum_below; /* keep track of sum of weights for weighted median */
+  double sum_above;/* keep track of sum of weights for weighted median */
+  double lambdaU; /* upper bound of interval where a ratio is optimal for v_j */
+  double lambdaL;/* lower bound of interval where a ratio is optimal for v_j */
+  double ***v_lj; /* solutions for fixed coord l and coord j and for each breakpoint */
+  double ***lambdas_lj; /* breakpoints for fixed coord l and coord j */
+  double ****lambdas_lj_sort; /* ordered breakpoints */
+  int **curr_lambda_lj; /* for iterating through lambdas when comparing solutions across fixed coord l */
+  double *lambdas_out;  /* final breakpoints for output; given lambda on input */
+  int num_distinct_lambdas; /* number of breakpoints */
+  int max_memory; /* keep track of memory for breakpoints and solutions for output; upper bound on number of breakpoints */
+  int **max_memory_lj;  /* keep track of memory for breakpoints and solutions for each fixed coord l and coord j */
+  int max_memory_lambdas; /* keep track of memory for breakpoints and solutions from Algorithm 1 */ 
+  int sparse; /* whether to solve sparse method */ 
+  double *vs; /* keep track of solutions for each fixed coord l */
+  double *zs; /* keep track of objective function values for each coord l */
+  double maxL; /* keep track of lower bound on interval for penalty where solution is best */
+  double minU;/* keep track of lower bound on interval where solution is best */
+  int lambda_curr; /* keep track of index of current penalty parameter */
+  int lambda_next; /* keep track of index of next penalty parameter (avoid duplicates) */
+  int check_lambda; /* keep track of whether to check the interval for this fixed coord l */
+  int v_index; /* keep track of which v to select for a fixed coordinate l and coordinate j for a given penalty */
+  int t; /* index for distinct lambdas */
 
 };
 typedef struct probleminfo PROBLEMINFO, *PROBLEMINFOptr;

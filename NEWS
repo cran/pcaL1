@@ -1,3 +1,7 @@
+Version 1.5.7 - January 2023
+* Adding sharpel1rs for fitting lines with missing data.
+* Adding sparsel1pca for fitting regularized lines.
+
 Version 1.5.6 - January 2022
 * Adding Makefile.ucrt
 

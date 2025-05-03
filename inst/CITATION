@@ -3,16 +3,16 @@
  year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
  vers <- paste("R package version", meta$Version)
  
- citEntry(entry="Manual",
+ bibentry(bibtype="Manual",
           title = "pcaL1: L1-Norm PCA Methods",
-          author = personList(as.person("Sapan Jot"),
-                              as.person("J. Paul Brooks"),
-                              as.person("Andrea Visentin"),
-                              as.person("Young Woong Park")),
+          author = c(
+ person("Sapan", "Jot", role="aut"),
+ person(c("J.", "Paul"), "Brooks", role="aut"),
+person("Andrea", "Visentin", role="aut"), 
+person(c("Young", "Woong"), "Park", role="aut"),
+person("Yi-Hui", "Zhou", role="aut")),
           year = year,
-          note = vers,
+          url = "https://CRAN.R-project.org/package=pcaL1",
+          note = vers
+)
  
-          textVersion =
-          paste("Sapan Jot, J. Paul Brooks, Andrea Visentin, Young Woong Park (", year,
-                "). pcaL1: L1-Norm PCA Methods. ",
-                vers, ".", sep=""))

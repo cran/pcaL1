@@ -11,8 +11,8 @@ This package contains implementations of six principal component analysis method
 \details{
 \tabular{ll}{
 Package: \tab pcaL1\cr
-Version: \tab 1.5.7\cr
-Date: \tab 2023-01-16\cr
+Version: \tab 1.5.9\cr
+Date: \tab 2025-04-25\cr
 License: \tab GPL (>=3)\cr
 URL: \tab http://www.optimization-online.org/DB_HTML/2012/04/3436.html, http://www.coin-or.org\cr SystemRequirements: \tab COIN-OR Clp (>= 1.17.4)\cr
 }
@@ -44,7 +44,7 @@ wl1pca                  wPCA
 }
 }
 \author{
-Sapan Jot <sapan.madaan@gmail.com>, Paul Brooks <jpbrooks@vcu.edu>, Andrea Visentin <andrea.visentin@insight-centre.org>,Young Woong Park <ywpark@mail.smu.edu>, and Yi-Hui Zhou <yihui_zhou@ncsu.edu>
+Sapan Jot <sapan.madaan@gmail.com>, Paul Brooks <jpbrooks@vcu.edu>, Andrea Visentin <andrea.visentin@insight-centre.org>,Young Woong Park <ywpark@iastate.edu>, and Yi-Hui Zhou <yihui_zhou@ncsu.edu>
 
 Maintainer: Paul Brooks <jpbrooks@vcu.edu>
 }

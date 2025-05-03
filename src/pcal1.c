@@ -25,7 +25,9 @@ int solvePcaL1(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo)
  int position;
 
  for (k = 0; k < q; ++k) {
-   REprintf("%d ", k+1);
+   if ((VERBOSITY) > 0) {
+     REprintf("%d ", k+1);
+   }
    if (k!=0) { /*compute new points_XT for Xj*/ 
     
      /*projFile = fopen("projPointsl1pca.txt", "a");
@@ -254,7 +256,9 @@ static int ChkConvergence(PROBLEMINFOptr probleminfo, ENTITYINFOptr entityinfo) 
     probleminfo->convergent = 0;
     for(j = 0; j < numattributes_m; ++j){
       probleminfo->wT[j] = probleminfo->wT[j] + (unif_rand() - 0.5)/100.0;
-      REprintf("%f\n", probleminfo->wT[j]);
+      if ((VERBOSITY) > 0) {
+        REprintf("%f\n", probleminfo->wT[j]);
+      }
       wTSum = wTSum + probleminfo->wT[j] * probleminfo->wT[j];
     }
     Normalizer = sqrt (wTSum);

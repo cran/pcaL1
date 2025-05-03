@@ -1,14 +1,28 @@
 Package: pcaL1
-Version: 1.5.7
-Date: 2023-01-16
+Version: 1.5.9
+Date: 2025-04-25
 Title: L1-Norm PCA Methods
 License: GPL (>= 3)
-Author: Sapan Jot <sapan.madaan@gmail.com>, Paul Brooks
-        <jpbrooks@vcu.edu>, 
-	Andrea Visentin <andrea.visentin@insight-centre.org>,
-        Young Woong Park <ywpark@mail.smu.edu>,
-        and Yi-Hui Zhou <yihui_zhou@ncsu.edu>
-Maintainer: Paul Brooks <jpbrooks@vcu.edu>
+Authors@R: c(person(given = "Sapan",
+                      family = "Jot",
+                      role = "aut",
+                      email = "sapan.madaan@gmail.com"),
+               person(given = "Paul",
+                      family = "Brooks",
+                      role = c("aut", "cre"),
+                      email = "jpbrooks@vcu.edu"),
+               person(given = "Andrea",
+                      family = "Visentin",
+                      role = "aut",
+                      email = "andrea.visentin@insight-centre.org"),
+               person(given = c("Young", "Woong"),
+                      family = "Park",
+                      role = "aut",
+                      email = "ywpark@iastate.edu"),
+               person(given = c("and", "Yi-Hui"),
+                      family = "Zhou",
+                      role = "aut",
+                      email = "yihui_zhou@ncsu.edu"))
 Description: Implementations of several methods for principal component analysis 
         using the L1 norm.  The package depends on COIN-OR Clp version >= 
         1.17.4.  The methods implemented are 
@@ -24,6 +38,12 @@ Description: Implementations of several methods for principal component analysis
 URL:
 SystemRequirements: COIN-OR Clp (>= 1.17.4)
 NeedsCompilation: yes
-Packaged: 2023-01-18 16:07:36 UTC; jpbrooks
+Packaged: 2025-04-25 15:39:07 UTC; jpbrooks
+Author: Sapan Jot [aut],
+  Paul Brooks [aut, cre],
+  Andrea Visentin [aut],
+  Young Woong Park [aut],
+  and Yi-Hui Zhou [aut]
+Maintainer: Paul Brooks <jpbrooks@vcu.edu>
 Repository: CRAN
-Date/Publication: 2023-01-18 18:00:02 UTC
+Date/Publication: 2025-05-03 19:30:02 UTC

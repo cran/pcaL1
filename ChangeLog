@@ -1,9 +1,16 @@
+2025-04-25  Paul Brooks  <jpbrooks@vcu.edu>
+        * configure.ac: removing bashisms.
+
+2023-02-01  Paul Brooks  <jpbrooks@vcu.edu>
+	* pcaL1.c: suppressing screen output.
+	* pcaL1_R.c: suppressing screen output.
+
 2023-01-16  Paul Brooks  <jpbrooks@vcu.edu>
 
 	* l1pcastar.c: removing sprintf() calls.
 	* l1projection.c: can handle missing values.
 	* sparsel1pca.c, sparseel1pca.R: algorithms for regularized line
-          fitting.
+	fitting.
 	* sharpel1rs.c, sharpel1rs.R: fitting lines with missing data.
 
 2022-01-03  Paul Brooks  <jpbrooks@vcu.edu>

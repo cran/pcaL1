@@ -1,4 +1,4 @@
-AC_INIT([pcaL1],[1.5.7],[jpbrooks@vcu.edu])
+AC_INIT([pcaL1],[1.5.9],[jpbrooks@vcu.edu])
 
 
 
@@ -15,17 +15,17 @@ dnl # --------------------------------------------------------------------
 dnl # R compiler and flags
 dnl # --------------------------------------------------------------------
 
-: ${R_HOME=`R RHOME`}
+: ${R_HOME=$(R RHOME)}
 if test -z "${R_HOME}"; then
     echo "could not determine R_HOME"
     exit 1
 fi
 
 dnl # GNU R default settings
-CC=`"${R_HOME}/bin/R" CMD config CC`
+CC="$("${R_HOME}/bin/R" CMD config CC)"
 #CPP=`"${R_HOME}/bin/R" CMD config CPP`
-CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
-CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+CFLAGS="$("${R_HOME}/bin/R" CMD config CFLAGS)"
+CPPFLAGS="$("${R_HOME}/bin/R" CMD config CPPFLAGS)"
 AC_PROG_CC
 AC_PROG_CPP
 
@@ -37,10 +37,10 @@ dnl # --------------------------------------------------------------------
 
 ARGS_OK="FALSE"
 
-if test [ -n "$PKG_CPPFLAGS" -a -n "$PKG_LIBS" ] ; then
+if test [ -n "$PKG_CPPFLAGS" ] && [ -n "$PKG_LIBS" ] ; then
     ARGS_OK="TRUE"
 else
-    if test [ -n "$PKG_CPPFLAGS" -o -n "$PKG_LIBS" ] ; then
+    if test [ -n "$PKG_CPPFLAGS" ] || [ -n "$PKG_LIBS" ] ; then
         AC_MSG_ERROR([Please set both variables: PKG_CPPFLAGS AND PKG_LIBS])
     fi
 fi
@@ -77,7 +77,7 @@ if test [ "$ARGS_OK" = "FALSE" ] ; then
             CLP_LIBS=`${PKG_CONFIG} --libs clp`    
             CLP_CFLAGS=`${PKG_CONFIG} --cflags clp`    
     
-            if test [ -z "$CLP_LIBS" -a -z "$CLP_CFLAGS" ] ; then
+            if test [ -z "$CLP_LIBS" ] && [ -z "$CLP_CFLAGS" ] ; then
                 AC_MSG_NOTICE([can not get information about clp from pkg-config])
             else
                 AC_MSG_NOTICE([set compile and link flags according to pkg-config])
@@ -103,7 +103,7 @@ dnl # include and library directories
 dnl # include and library directories
 if test [ "$ARGS_OK" = "FALSE" ] ; then
 
-    if test [ -n "$CLP_INCLUDE" -a -n "$CLP_LIB" ] ; then
+    if test [ -n "$CLP_INCLUDE" ] && [ -n "$CLP_LIB" ] ; then
     
         if test [ -d "$CLP_INCLUDE" ] ; then
             if test [ -d "$CLP_INCLUDE/coin" ] ; then
@@ -136,13 +136,13 @@ if test [ "$ARGS_OK" = "FALSE" ] ; then
     
             AC_MSG_NOTICE([No prefix given, trying /usr and /usr/local])
     
-            if test [ -d "/usr/include" -o -d "/usr/local/include" ] ; then
+            if test [ -d "/usr/include" ] || [ -d "/usr/local/include" ] ; then
                 PKG_CPPFLAGS="-I/usr/include -I/usr/local/include -I/usr/include/coin -I/usr/local/include/coin"
             else
                 AC_MSG_ERROR([directories /usr/include and /usr/local/include do not exist])
             fi
 
-            if test [ -d "/usr/local/lib" -o -d "/usr/local/lib64" -o -d "/usr/lib" -o -d "/usr/lib64"] ; then
+            if test [ -d "/usr/local/lib" ] || [ -d "/usr/local/lib64" ] || [ -d "/usr/lib" ] || [ -d "/usr/lib64"] ; then
                 PKG_LIBS=""
                 if test [ -d "/usr/local/lib" ] ; then
                     PKG_LIBS="$PKG_LIBS -L/usr/local/lib"
@@ -186,7 +186,7 @@ if test [ "$ARGS_OK" = "FALSE" ] ; then
                 AC_MSG_ERROR([directory $prefix/include does not exist])
             fi
 
-            if test [ -d "$prefix/lib" -o -d "$prefix/lib64" ] ; then
+            if test [ -d "$prefix/lib" ] || [ -d "$prefix/lib64" ] ; then
                 PKG_LIBS=""
                 if test [ -d "$prefix/lib" ] ; then
                     PKG_LIBS="$PKG_LIBS -L$prefix/lib"

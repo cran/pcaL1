@@ -47,7 +47,9 @@ void pcal1 (double *points_XT, int *dataDim, int *q, double *PCs, int *initMetho
 
   PutRNGstate();
 
-  REprintf("\n");
+  if ((VERBOSITY) > 0) {
+    REprintf("\n");
+  }
 TERMINATE:
 
   free_and_null ((char **) &probleminfo.polarity);

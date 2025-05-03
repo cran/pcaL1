@@ -10,13 +10,13 @@ void sparsel1pca (double *points_XT, int *dataDim, int *q, double *PCs, double *
 {
  
   ENTITYINFO entityinfo;
-  SOLVERINFO  solverinfo;
+  /*SOLVERINFO  solverinfo;*/
   PROBLEMINFO  probleminfo;
   
   probleminfo.status = 0;
   int status        = probleminfo.status;
 
-  solverinfo.model = NULL;
+  /*solverinfo.model = NULL;*/
 
   probleminfo.obj       = NULL;
   probleminfo.lb        = NULL;

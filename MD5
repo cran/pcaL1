@@ -1,8 +1,8 @@
-e370d4a95a8a11406d578c53e71f281a *ChangeLog
-cd695ab0d6cba1e080d1842c6e3db5ec *DESCRIPTION
+bae4dbff3f432693e60bb6988ba0ee77 *ChangeLog
+9b2788912d8991e3f0573beeacf48011 *DESCRIPTION
 aef9330aa680f983852f3cf1a739369b *INSTALL
 432c639de7ed8392a8130d91b1e0c95a *NAMESPACE
-3da4d18b315870dbcd8f7014ed2d52f9 *NEWS
+f0eb7d1bb6331dc403812ec40569c1e2 *NEWS
 915985c28978ca0cb26d19d732e5e217 *R/awl1pca.R
 81c0cd42f5a7d5e3a1cf11fd1b446236 *R/l1pca.R
 d7ba31ddcc15595274112ccc453a38fa *R/l1pcahp.R
@@ -28,9 +28,9 @@ a9b1d9ab56babb0848391f2cda941812 *R/sharpel1rs.R
 9d051913d881d930f77f3c4ca3bf854f *R/wl1pca.R
 96f5bd19048a079a1bc36bd43d199080 *README
 4e574268a8096ccc9e0644c12423a020 *cleanup
-b7e7b1141b3c053dbb4263ee97aaf788 *configure
-df1cd6c321412377d2b23b43bafd4c93 *configure.ac
-c1430c105ecd26c5aaf09f2bfa4d84da *inst/CITATION
+b94e62189687492b0eab28ed35879248 *configure
+844e54d9fd26e542fa6f200a20a8c183 *configure.ac
+1f10f8adff23c19b6c52abd823657f39 *inst/CITATION
 5a8dd65e8625cb04dc95105c33492a99 *man/L2PCA_approx.Rd
 921a2a6d761672b54b346b7c26564d28 *man/awl1pca.Rd
 aa144b9b271e5c0a1f8aad932f906385 *man/l1pca.Rd
@@ -38,7 +38,7 @@ aa144b9b271e5c0a1f8aad932f906385 *man/l1pca.Rd
 5d16933949c5be567a4436cd95dce06d *man/l1pcastar.Rd
 f478f44bc7e5cf5ec8c51f52c9cf9c44 *man/l1projection.Rd
 5a4ce5a590c52732028fc6b35110d726 *man/l2projection.Rd
-92b8c88dd169018427f789db95fdbd87 *man/pcaL1-package.Rd
+76334d26c47e44030c171abb3c30cd4d *man/pcaL1-package.Rd
 b69d050a43d0f647c873dc7ed30b4b4b *man/pcal1.Rd
 7560b20d330974be79c65de6a76bf777 *man/pcalp.Rd
 21c3b603b5c06374b59add56794866a5 *man/plot.awl1pca.Rd
@@ -69,8 +69,8 @@ db4c9febd5fb7be7233256e7bb56c406 *src/l1pcastar_R.c
 0661f4ebf0b689e4960ab30087089995 *src/l1projection.c
 aa4e53c88a2f43b872b5cbd42190b004 *src/l1projection_R.c
 df814b7b6d399ed50b037d0f070bec8e *src/pcaL1-win.def
-4ca68eecd127bcb3e9cdce5ca14e759e *src/pcal1.c
-a4d5fa687d36d776177132be6f8a691b *src/pcal1_R.c
+285b4174ab262b489fb1afbe16ea2a6b *src/pcal1.c
+3555c209edf7026cf70f6c028411f284 *src/pcal1_R.c
 bc9e7fa8deaf0f712c876588a29a1270 *src/pcalp.c
 9d1dbeea14a35ad4cea7c189250f97c6 *src/pcalp_R.c
 2987ea1d360614e2cb43a98fabff3648 *src/sharpel1pca.c
@@ -78,5 +78,5 @@ bc9e7fa8deaf0f712c876588a29a1270 *src/pcalp.c
 539f00f931b4344f75fb69822c8aa122 *src/sharpel1rs.c
 cc8ee7472ae8d60acbf470e317612b4e *src/sharpel1rs_R.c
 7f64b6f19c2d3f9741adc4e1ec3e0fd6 *src/sparsel1pca.c
-24a3a5971a2e94404397901f29b15404 *src/sparsel1pca_R.c
+f0dcaa79eafb21e3ef03d95310c38fb1 *src/sparsel1pca_R.c
 080bc67c98be4607dbe333ce49cf118d *src/type.h

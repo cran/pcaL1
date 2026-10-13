@@ -298,7 +298,7 @@ int solveSparsEl(ENTITYINFOptr entityinfo, PROBLEMINFOptr probleminfo) {
               fprintf(stdout, "numlambdas %d\n", num_lambdas_lj[l][j]);*/
             }
             sum_below += weights[origIndex];
-        }
+          }
           /* keep track of lambda_max solution, even if lambda_max = 0 */
           lambdas_lj[l][j][num_lambdas_lj[l][j]] = lambda_max; /* beyond highest upper bound, set v_j = 0 */
           lambdas_lj_sort[l][j][num_lambdas_lj[l][j]] = &(lambdas_lj[l][j][num_lambdas_lj[l][j]]);

@@ -1,6 +1,6 @@
 Package: pcaL1
-Version: 1.5.9
-Date: 2025-04-25
+Version: 1.5.10
+Date: 2026-10-12
 Title: L1-Norm PCA Methods
 License: GPL (>= 3)
 Authors@R: c(person(given = "Sapan",
@@ -10,7 +10,7 @@ Authors@R: c(person(given = "Sapan",
                person(given = "Paul",
                       family = "Brooks",
                       role = c("aut", "cre"),
-                      email = "jpbrooks@vcu.edu"),
+                      email = "jpbrooks@ou.edu"),
                person(given = "Andrea",
                       family = "Visentin",
                       role = "aut",
@@ -38,12 +38,12 @@ Description: Implementations of several methods for principal component analysis
 URL:
 SystemRequirements: COIN-OR Clp (>= 1.17.4)
 NeedsCompilation: yes
-Packaged: 2025-04-25 15:39:07 UTC; jpbrooks
+Packaged: 2026-10-13 01:58:47 UTC; jpbrooks
 Author: Sapan Jot [aut],
   Paul Brooks [aut, cre],
   Andrea Visentin [aut],
   Young Woong Park [aut],
   and Yi-Hui Zhou [aut]
-Maintainer: Paul Brooks <jpbrooks@vcu.edu>
+Maintainer: Paul Brooks <jpbrooks@ou.edu>
 Repository: CRAN
-Date/Publication: 2025-05-03 19:30:02 UTC
+Date/Publication: 2026-10-13 06:00:02 UTC

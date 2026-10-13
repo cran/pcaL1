@@ -1,37 +1,51 @@
+Version 1.5.10 - October 2026
+
+* Updating maintainer email.
+
 Version 1.5.9 - April 2025
+
 * Updating configure.ac.
 
 Version 1.5.8 - February 2023
+
 * Suppressing output for pcal1.
 
 Version 1.5.7 - January 2023
+
 * Adding sharpel1rs for fitting lines with missing data.
 * Adding sparsel1pca for fitting regularized lines.
 
 Version 1.5.6 - January 2022
+
 * Adding Makefile.ucrt
 
 Version 1.5.5 - October 2021
+
 * Updating configure.ac
 
 Version 1.5.4 - Febuary 2020
+
 * Including stdbool.h
 * Updating configure.ac
 
 Version 1.5.3 - December 2019
+
 * Changing class() to inherits()
 * Adding weightedL1Distance.R for weighted L1-norm distances of points to a subspace
 
 Version 1.5.2 - July 2017
+
 * Repairing projection into orthogonal space for SharpEl1-PCA
 * No longer removing origin points from PCA-L1
 * Edited man pages
 
 Version 1.5.1 - April 2017
+
 * Updated calculation of L1-norm scores
 * Edited man pages
 
 Version 1.5 - February 2017
+
 * Added implementation of method SharpEl1-PCA (Brooks and Dula, 2017)
 * Added implementation of method PCA-Lp (Kwak, 2014)
 * Updated options for calculating scores and reconstructions (Zhou and Marron, 2016)
